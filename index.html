@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imami Joel Betofe — Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0f0d;
+    --ink-2: #3a3935;
+    --ink-3: #7a7870;
+    --paper: #f5f3ee;
+    --paper-2: #eceae3;
+    --paper-3: #e0ddd4;
+    --accent: #1a4a2e;
+    --accent-2: #2d7a4f;
+    --accent-light: #d6ead0;
+    --rule: #d4d1c8;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Outfit', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(245,243,238,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-2);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+
+  .hero-left {
+    padding: 8rem 4rem 6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 0.5px solid var(--rule);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent-2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent-2);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--ink-2);
+    max-width: 440px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.75rem;
+    background: transparent;
+    color: var(--ink-2);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: 0.5px solid var(--ink-3);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-right {
+    padding: 8rem 4rem 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+  }
+
+  .stat-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--rule);
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideIn 0.6s forwards;
+  }
+
+  .stat-row:nth-child(1) { animation-delay: 0.1s; }
+  .stat-row:nth-child(2) { animation-delay: 0.2s; }
+  .stat-row:nth-child(3) { animation-delay: 0.3s; }
+  .stat-row:nth-child(4) { animation-delay: 0.4s; }
+  .stat-row:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--accent);
+    min-width: 80px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--ink-3);
+    line-height: 1.4;
+  }
+
+  .stat-label strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-2);
+    margin-bottom: 2px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 5rem;
+    border-top: 0.5px solid var(--rule);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+
+  /* PROJECTS GRID */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 0.5px solid var(--rule);
+  }
+
+  .project-card {
+    background: var(--paper);
+    padding: 2.5rem;
+    transition: background 0.2s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover { background: var(--paper-2); }
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-card.featured {
+    grid-column: span 2;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .project-card.featured .project-tag { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); }
+  .project-card.featured h3 { color: #fff; }
+  .project-card.featured .project-desc { color: rgba(255,255,255,0.75); }
+  .project-card.featured .project-meta span { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
+  .project-card.featured::after { background: rgba(255,255,255,0.3); }
+
+  .project-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    border: 0.5px solid var(--accent-light);
+    padding: 3px 10px;
+    margin-bottom: 1.25rem;
+    background: var(--accent-light);
+  }
+
+  .project-card h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .project-meta span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    border: 0.5px solid var(--rule);
+    padding: 3px 10px;
+  }
+
+  .coming-soon {
+    opacity: 0.45;
+    position: relative;
+  }
+
+  .coming-soon-badge {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    background: var(--paper-3);
+    padding: 4px 10px;
+    border: 0.5px solid var(--rule);
+  }
+
+  /* SKILLS */
+  .skills-section { background: var(--paper-2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .skill-group h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skill-list li {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--accent-2);
+    flex-shrink: 0;
+  }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 0.5px solid var(--rule);
+    padding-left: 2.5rem;
+    margin-left: 1rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.75rem;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    background: var(--paper);
+    border: 1.5px solid var(--accent-2);
+  }
+
+  .timeline-item.current::before {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-role {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .timeline-company {
+    font-size: 13px;
+    color: var(--accent-2);
+    margin-bottom: 0.75rem;
+    font-weight: 400;
+  }
+
+  .timeline-desc {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    line-height: 1.65;
+    max-width: 600px;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--ink);
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 6rem 5rem;
+    border-top: 0.5px solid var(--ink-2);
+  }
+
+  .contact-section h2 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-section p {
+    color: rgba(255,255,255,0.6);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    transition: color 0.2s;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .contact-link:last-child { border-bottom: none; }
+  .contact-link:hover { color: #fff; }
+
+  .contact-link-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 1.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.06em;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 1.5rem 2rem; border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .hero-right { padding: 2rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .skills-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-section { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">IJB.portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Engineering Management & Systems</div>
+    <h1>Imami Joel<br><em>Betofe</em></h1>
+    <p class="hero-sub">
+      Mechatronics and IoT engineer transitioning into engineering leadership — with hands-on experience across BMS, embedded systems, UAVs, and smart technologies. Building at the intersection of technical depth and systems thinking.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View projects</a>
+      <a href="https://github.com/Betofe" target="_blank" class="btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-row">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">
+        <strong>Years of engineering experience</strong>
+        Embedded systems, BMS, drones, IoT
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-num">PG</div>
+      <div class="stat-label">
+        <strong>Postgraduate Diploma</strong>
+        Engineering Management — CPUT 2024
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">
+        <strong>Engineering domains</strong>
+        BMS · IoT · Drones · Embedded · Automation
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-num">CEO</div>
+      <div class="stat-label">
+        <strong>Founder, Nexadaptronics</strong>
+        Automation and software solutions — 2024–present
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-num">3</div>
+      <div class="stat-label">
+        <strong>Languages spoken</strong>
+        Lingala · French · English
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-up">
+    <span class="section-tag">01 / Work</span>
+    <h2>Selected projects</h2>
+  </div>
+
+  <div class="projects-grid fade-up">
+
+    <!-- Featured -->
+    <div class="project-card featured">
+      <span class="project-tag">Engineering Management</span>
+      <h3>BMS System Health Analysis — Landis &amp; Staefa</h3>
+      <p class="project-desc">
+        Conducted an unsolicited systems analysis of a live commercial BMS environment. Mapped all assets and dependencies across HVAC, lighting, and security networks. Built a risk register using FMEA methodology, identified single points of failure, and produced a system health report with prioritised recommendations — written for a non-technical building owner audience.
+      </p>
+      <div class="project-meta">
+        <span>Risk Management</span>
+        <span>FMEA</span>
+        <span>Systems Thinking</span>
+        <span>BACnet / Modbus</span>
+        <span>Siemens DesigoCC</span>
+        <span>Niagara Tridium</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="project-card fade-up">
+      <span class="project-tag">Research / IoT</span>
+      <h3>RFID Inventory Drone with Flutter Integration</h3>
+      <p class="project-desc">
+        PG Diploma research project: designed and developed a drone system for real-time inventory management using RFID. Integrated Flutter mobile application for live asset tracking and IoT data management. Managed the full engineering lifecycle from concept through to prototype validation.
+      </p>
+      <div class="project-meta">
+        <span>RFID</span>
+        <span>Flutter</span>
+        <span>IoT Architecture</span>
+        <span>Project Management</span>
+        <span>Embedded C++</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="project-card fade-up">
+      <span class="project-tag">Embedded / Security</span>
+      <h3>Biometric Vehicle Access System</h3>
+      <p class="project-desc">
+        Designed and integrated a fingerprint-based vehicle ignition system with AWS backend for biometric data management. Involved sensor integration, embedded firmware, and cloud connectivity for secure, scalable access control.
+      </p>
+      <div class="project-meta">
+        <span>Fingerprint Sensor</span>
+        <span>AWS</span>
+        <span>Embedded C++</span>
+        <span>Python</span>
+        <span>IoT Security</span>
+      </div>
+    </div>
+
+    <!-- Card 4 - Nexadaptronics -->
+    <div class="project-card fade-up">
+      <span class="project-tag">Venture / Leadership</span>
+      <h3>Nexadaptronics — Engineering Startup</h3>
+      <p class="project-desc">
+        Founded and lead an engineering solutions company focused on automation and software. Managing full project lifecycle independently — from scoping client requirements and estimating technical feasibility through to development, testing, and deployment.
+      </p>
+      <div class="project-meta">
+        <span>Technical Leadership</span>
+        <span>Project Charter</span>
+        <span>Full Lifecycle</span>
+        <span>Automation</span>
+        <span>Software Dev</span>
+      </div>
+    </div>
+
+    <!-- Card 5 - Drone -->
+    <div class="project-card fade-up">
+      <span class="project-tag">Aerospace / Systems</span>
+      <h3>Firefighting Payload Drone</h3>
+      <p class="project-desc">
+        Led development of a firefighting drone from design to deployment. Covered PCB design, embedded firmware on ESP32, payload integration, wiring, and field testing. Included obstacle avoidance via sensor fusion.
+      </p>
+      <div class="project-meta">
+        <span>PCB Design</span>
+        <span>ESP32</span>
+        <span>Sensor Fusion</span>
+        <span>GPS / IMU</span>
+        <span>C++ Firmware</span>
+      </div>
+    </div>
+
+    <!-- Card 6 - Coming soon -->
+    <div class="project-card coming-soon fade-up">
+      <span class="coming-soon-badge">Coming soon</span>
+      <span class="project-tag">Engineering Management</span>
+      <h3>Project Charter — Nexadaptronics Product</h3>
+      <p class="project-desc">
+        Full project charter including scope definition, risk register, PERT/CPM schedule, NPV analysis, and stakeholder communication plan. A demonstration of engineering management discipline applied to a real product development cycle.
+      </p>
+      <div class="project-meta">
+        <span>PERT / CPM</span>
+        <span>NPV Analysis</span>
+        <span>Risk Register</span>
+        <span>Stakeholder Mgmt</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-up">
+    <span class="section-tag">02 / Journey</span>
+    <h2>Experience</h2>
+  </div>
+
+  <div class="timeline fade-up">
+    <div class="timeline-item current">
+      <div class="timeline-date">Apr 2025 — Present</div>
+      <div class="timeline-role">Automation & Control Engineer (BMS)</div>
+      <div class="timeline-company">Landis and Staefa</div>
+      <p class="timeline-desc">Installing, configuring, and maintaining BMS systems for HVAC, lighting, and security across smart building infrastructure. Working with BACnet, Modbus, and LonWorks protocols; managing Siemens DesigoCC and Niagara Tridium platforms.</p>
+    </div>
+    <div class="timeline-item current">
+      <div class="timeline-date">Sep 2024 — Present</div>
+      <div class="timeline-role">CEO & Founder</div>
+      <div class="timeline-company">Nexadaptronics</div>
+      <p class="timeline-desc">Leading design and development of automation and software solutions. Managing full project lifecycle independently across embedded and application-level systems using OOP principles.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Nov 2023 — Sep 2024</div>
+      <div class="timeline-role">IoT Embedded Systems Engineer</div>
+      <div class="timeline-company">Nuvetech</div>
+      <p class="timeline-desc">Developed IoT embedded systems using C++ and Python for intelligent device communication and automation. Integrated biometric hardware, edge devices, and AWS cloud connectivity.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Apr 2022 — Nov 2023</div>
+      <div class="timeline-role">Flight Control Engineer</div>
+      <div class="timeline-company">Autonosky</div>
+      <p class="timeline-desc">Designed and programmed UAV systems integrating GPS, IMU, and computer vision for autonomous flight. Developed embedded firmware in C++ and Python; performed field testing and system validation.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2024</div>
+      <div class="timeline-role">Postgraduate Diploma — Engineering Management</div>
+      <div class="timeline-company">Cape Peninsula University of Technology</div>
+      <p class="timeline-desc">Research: Development of an RFID-based inventory management drone system integrating Flutter mobile application for real-time monitoring, asset tracking, and IoT data management.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-header fade-up">
+    <span class="section-tag">03 / Capabilities</span>
+    <h2>Skills &amp; tools</h2>
+  </div>
+
+  <div class="skills-grid fade-up">
+    <div class="skill-group">
+      <h4>Engineering Management</h4>
+      <ul class="skill-list">
+        <li>Risk management &amp; FMEA</li>
+        <li>Project charter &amp; scoping</li>
+        <li>PERT / CPM scheduling</li>
+        <li>NPV &amp; financial analysis</li>
+        <li>Stakeholder communication</li>
+        <li>Asana, Trello</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4>BMS &amp; Industrial</h4>
+      <ul class="skill-list">
+        <li>Siemens DesigoCC</li>
+        <li>Niagara Tridium</li>
+        <li>BACnet, Modbus, LonWorks</li>
+        <li>PLC programming (TIA Portal)</li>
+        <li>SCADA &amp; HMI</li>
+        <li>HVAC &amp; lighting systems</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4>IoT &amp; Embedded</h4>
+      <ul class="skill-list">
+        <li>ESP32, Arduino, Raspberry Pi</li>
+        <li>Embedded C++, Python</li>
+        <li>MQTT, BLE, LTE, GPS, NFC</li>
+        <li>AWS, Node-RED, Flespi</li>
+        <li>Flutter, React Native</li>
+        <li>PCB design &amp; debugging</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact" class="contact-section">
+  <div>
+    <h2>Let's work<br><em style="font-style:italic; color: rgba(255,255,255,0.5)">together</em></h2>
+    <p style="margin-top: 1.5rem">
+      Open to engineering management roles, technical project leadership, and systems integration opportunities. Based in Pretoria, South Africa — available remotely.
+    </p>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:jobetofeimami@gmail.com" class="contact-link">
+      <div>
+        <span class="contact-link-label">Email</span>
+        jobetofeimami@gmail.com
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/in/imami-j-betofe-047a70188" target="_blank" class="contact-link">
+      <div>
+        <span class="contact-link-label">LinkedIn</span>
+        imami-j-betofe-047a70188
+      </div>
+    </a>
+    <a href="https://github.com/Betofe" target="_blank" class="contact-link">
+      <div>
+        <span class="contact-link-label">GitHub</span>
+        github.com/Betofe
+      </div>
+    </a>
+    <a href="tel:+27729378309" class="contact-link">
+      <div>
+        <span class="contact-link-label">Phone</span>
+        +27 72 937 8309
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>Imami Joel Betofe — Engineering Portfolio</p>
+  <p>Pretoria, South Africa · 2025</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
