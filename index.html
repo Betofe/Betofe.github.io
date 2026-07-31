@@ -38,7 +38,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -78,7 +77,6 @@
 
   .nav-links a:hover { color: var(--accent); }
 
-  /* HERO */
   .hero {
     min-height: 100vh;
     display: grid;
@@ -233,7 +231,6 @@
     margin-bottom: 2px;
   }
 
-  /* SECTIONS */
   section {
     padding: 6rem 5rem;
     border-top: 0.5px solid var(--rule);
@@ -263,7 +260,6 @@
     line-height: 1.15;
   }
 
-  /* PROJECTS GRID */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -368,7 +364,6 @@
     border: 0.5px solid var(--rule);
   }
 
-  /* SKILLS */
   .skills-section { background: var(--paper-2); }
 
   .skills-grid {
@@ -412,7 +407,6 @@
     flex-shrink: 0;
   }
 
-  /* EXPERIENCE TIMELINE */
   .timeline {
     display: flex;
     flex-direction: column;
@@ -472,7 +466,6 @@
     max-width: 600px;
   }
 
-  /* CONTACT */
   .contact-section {
     background: var(--ink);
     color: #fff;
@@ -526,7 +519,6 @@
     margin-bottom: 2px;
   }
 
-  /* FOOTER */
   footer {
     background: var(--ink);
     padding: 1.5rem 5rem;
@@ -543,7 +535,6 @@
     letter-spacing: 0.06em;
   }
 
-  /* ANIMATIONS */
   .fade-up {
     opacity: 0;
     transform: translateY(24px);
@@ -552,7 +543,6 @@
 
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-  /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { gap: 1.5rem; }
@@ -580,13 +570,12 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">Engineering Management & Systems</div>
     <h1>Imami Joel<br><em>Betofe</em></h1>
     <p class="hero-sub">
-      Mechatronics and IoT engineer transitioning into engineering leadership — with hands-on experience across BMS, embedded systems, UAVs, and smart technologies. Building at the intersection of technical depth and systems thinking.
+      Mechatronics and IoT engineer transitioning into engineering leadership — with hands-on experience across BMS, embedded systems, UAVs, and smart technologies. Applying the same systems-integration discipline to AI engineering — building LLM-powered agents with RAG and tool/function calling, multi-channel AI platforms, and cloud-deployable services. Building at the intersection of technical depth and systems thinking.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">View projects</a>
@@ -633,7 +622,6 @@
   </div>
 </div>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-header fade-up">
     <span class="section-tag">01 / Work</span>
@@ -642,7 +630,6 @@
 
   <div class="projects-grid fade-up">
 
-    <!-- Featured -->
     <div class="project-card featured">
       <span class="project-tag">Engineering Management</span>
       <h3>BMS System Health Analysis — Landis &amp; Staefa</h3>
@@ -674,8 +661,23 @@
           View System Risk Register →
         </a>
       </div>
-   
-    <!-- Card 2 -->
+
+    <div class="project-card featured">
+      <span class="project-tag">AI Engineering</span>
+      <h3>Enterprise AI Customer Support Agent</h3>
+      <p class="project-desc">
+        Designed and built a multi-channel AI support platform — web, voice, and email (real IMAP/SMTP auto-reply) — sharing one core reasoning engine powered by the Google Gemini API with retrieval-augmented generation (RAG) and tool/function calling. Integrated a real CRM (Google Sheets API) for lead escalation and a live monitoring dashboard, containerized with Docker.
+      </p>
+      <div class="project-meta">
+        <span>RAG</span>
+        <span>Tool Calling</span>
+        <span>FastAPI</span>
+        <span>Docker</span>
+        <span>ChromaDB</span>
+        <span>CRM Integration</span>
+      </div>
+    </div>
+
     <div class="project-card fade-up">
       <span class="project-tag">Research / IoT</span>
       <h3>RFID Inventory Drone with Flutter Integration</h3>
@@ -691,7 +693,6 @@
       </div>
     </div>
 
-    <!-- Card 3 -->
     <div class="project-card fade-up">
       <span class="project-tag">Embedded / Security</span>
       <h3>Biometric Vehicle Access System</h3>
@@ -707,7 +708,21 @@
       </div>
     </div>
 
-    <!-- Card 4 - Nexadaptronics -->
+    <div class="project-card fade-up">
+      <span class="project-tag">AI Engineering</span>
+      <h3>AI Website Assistant — Nexadaptronics</h3>
+      <p class="project-desc">
+        Built a self-updating AI website assistant using a headless-browser ingestion pipeline that scrapes live site content into a semantic search index (ChromaDB), so the knowledge base stays current without manual maintenance. Deployed as an embeddable chat widget with tool-calling-based escalation.
+      </p>
+      <div class="project-meta">
+        <span>RAG</span>
+        <span>Web Scraping</span>
+        <span>ChromaDB</span>
+        <span>FastAPI</span>
+        <span>Chat Widget</span>
+      </div>
+    </div>
+
     <div class="project-card fade-up">
       <span class="project-tag">Venture / Leadership</span>
       <h3>Nexadaptronics — Engineering Consulting Startup</h3>
@@ -723,7 +738,6 @@
       </div>
     </div>
 
-    <!-- Card 5 - Drone -->
     <div class="project-card fade-up">
       <span class="project-tag">Aerospace / Systems</span>
       <h3>Firefighting Payload Drone</h3>
@@ -739,7 +753,36 @@
       </div>
     </div>
 
-    <!-- Card 6 - Joatech -->
+    <div class="project-card fade-up">
+      <span class="project-tag">AI Engineering</span>
+      <h3>EdgeVision AI — Real-Time Vision Inspection</h3>
+      <p class="project-desc">
+        Built a real-time computer vision inspection platform (OpenCV, YOLO) with a configurable rules engine for pass/fail quality checks, a REST API backed by a background inference thread, structured failure-event capture with screenshots, and a live monitoring dashboard.
+      </p>
+      <div class="project-meta">
+        <span>OpenCV</span>
+        <span>YOLO</span>
+        <span>Edge AI</span>
+        <span>FastAPI</span>
+        <span>Event Monitoring</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <span class="project-tag">AI Engineering</span>
+      <h3>Workspace Automation Platform</h3>
+      <p class="project-desc">
+        Developed an OAuth 2.0-authenticated platform integrating Gmail and Google Calendar — AI-powered email classification and summarization, automated calendar conflict detection, and unified semantic search across email and calendar data.
+      </p>
+      <div class="project-meta">
+        <span>OAuth 2.0</span>
+        <span>Gmail API</span>
+        <span>Calendar API</span>
+        <span>LLM Classification</span>
+        <span>Semantic Search</span>
+      </div>
+    </div>
+
     <div class="project-card fade-up">
       <span class="project-tag">Engineering Management</span>
       <h3>Project Charter — Joatech Website Delivery</h3>
@@ -787,7 +830,6 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-header fade-up">
     <span class="section-tag">02 / Journey</span>
@@ -828,7 +870,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills" class="skills-section">
   <div class="section-header fade-up">
     <span class="section-tag">03 / Capabilities</span>
@@ -869,10 +910,20 @@
         <li>PCB design &amp; debugging</li>
       </ul>
     </div>
+    <div class="skill-group">
+      <h4>AI &amp; Software Engineering</h4>
+      <ul class="skill-list">
+        <li>LLM integration &amp; tool/function calling</li>
+        <li>RAG &amp; vector search (ChromaDB)</li>
+        <li>FastAPI &amp; REST API design</li>
+        <li>OAuth 2.0 &amp; API integrations</li>
+        <li>Docker &amp; AWS deployment</li>
+        <li>Computer vision (OpenCV, YOLO)</li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <div id="contact" class="contact-section">
   <div>
     <h2>Let's work<br><em style="font-style:italic; color: rgba(255,255,255,0.5)">together</em></h2>
