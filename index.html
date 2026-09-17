@@ -203,6 +203,7 @@
   .stat-row:nth-child(3) { animation-delay: 0.3s; }
   .stat-row:nth-child(4) { animation-delay: 0.4s; }
   .stat-row:nth-child(5) { animation-delay: 0.5s; }
+  .stat-row:nth-child(6) { animation-delay: 0.6s; }
 
   @keyframes slideIn {
     to { opacity: 1; transform: translateX(0); }
@@ -297,7 +298,7 @@
     color: #fff;
   }
 
-  .project-card.featured .project-tag { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); }
+  .project-card.featured .project-tag { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); }
   .project-card.featured h3 { color: #fff; }
   .project-card.featured .project-desc { color: rgba(255,255,255,0.75); }
   .project-card.featured .project-meta span { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
@@ -345,6 +346,33 @@
     color: var(--ink-3);
     border: 0.5px solid var(--rule);
     padding: 3px 10px;
+  }
+
+  .project-links {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link-btn {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: 0.5px solid rgba(255,255,255,0.3);
+    transition: background 0.2s;
+  }
+
+  .project-link-btn:hover { background: rgba(255,255,255,0.28); }
+
+  .project-link-btn.on-light {
+    background: #1a4a2e;
+    border-color: rgba(255,255,255,0.3);
   }
 
   .coming-soon {
@@ -572,10 +600,10 @@
 
 <div class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">Engineering Management & Systems</div>
+    <div class="hero-eyebrow">Engineering Management & Systems · State Estimation & Sensor Fusion</div>
     <h1>Imami Joel<br><em>Betofe</em></h1>
     <p class="hero-sub">
-      Mechatronics and IoT engineer transitioning into engineering leadership — with hands-on experience across BMS, embedded systems, UAVs, and smart technologies. Applying the same systems-integration discipline to AI engineering — building LLM-powered agents with RAG and tool/function calling, multi-channel AI platforms, and cloud-deployable services. Building at the intersection of technical depth and systems thinking.
+      Mechatronics engineer with flight control and sensor fusion experience on multicopters — building state estimation pipelines (EKF, ESKF, and beyond) from mathematical first principles through to live C++ implementation, validated on PX4 SITL and Gazebo. This sits alongside a broader background across BMS, embedded systems, IoT, and full-project engineering delivery, plus AI engineering work building LLM-powered agents with RAG and tool/function calling. Building at the intersection of technical depth and systems thinking.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">View projects</a>
@@ -588,7 +616,14 @@
       <div class="stat-num">4+</div>
       <div class="stat-label">
         <strong>Years of engineering experience</strong>
-        Embedded systems, BMS, drones, IoT
+        Flight control, embedded systems, BMS, drones, IoT
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-num">KF→ESKF</div>
+      <div class="stat-label">
+        <strong>State estimation filters implemented</strong>
+        Kalman Filter through Error-State Kalman Filter, in C++
       </div>
     </div>
     <div class="stat-row">
@@ -602,7 +637,7 @@
       <div class="stat-num">5+</div>
       <div class="stat-label">
         <strong>Engineering domains</strong>
-        BMS · IoT · Drones · Embedded · Automation
+        Flight Control · BMS · IoT · Drones · Automation
       </div>
     </div>
     <div class="stat-row">
@@ -631,6 +666,25 @@
   <div class="projects-grid fade-up">
 
     <div class="project-card featured">
+      <span class="project-tag">Aerospace / State Estimation</span>
+      <h3>Real-Time UAV Sensor Fusion — KF/ESKF on PX4 SITL</h3>
+      <p class="project-desc">
+        Built a real-time state estimation pipeline in C++ from the protocol layer up: a custom MAVLink v2 UDP parser (X.25 CRC, HIGHRES_IMU and GPS_RAW_INT decoding) feeding a 15-state Error-State Kalman Filter — position, velocity, orientation error, accelerometer bias, and gyroscope bias — with quaternion-based nominal-state propagation and error-state correction on GPS updates. Also implemented a standard Kalman Filter for comparison. Ran live against PX4 SITL and Gazebo on Ubuntu/WSL, logging raw sensor data against filtered output to CSV for direct accuracy validation. Several other filter formulations were also derived mathematically and implemented alongside these.
+      </p>
+      <div class="project-meta">
+        <span>C++ / Eigen</span>
+        <span>Kalman Filter</span>
+        <span>Error-State KF (ESKF)</span>
+        <span>MAVLink v2</span>
+        <span>PX4 SITL</span>
+        <span>Gazebo</span>
+        <span>QGroundControl</span>
+        <span>Ubuntu / WSL</span>
+        <span>UDP Socket Programming</span>
+      </div>
+    </div>
+
+    <div class="project-card featured">
       <span class="project-tag">Engineering Management</span>
       <h3>BMS System Health Analysis — Landis &amp; Staefa</h3>
       <p class="project-desc">
@@ -645,19 +699,11 @@
         <span>Niagara Tridium</span>
       </div>
     </div>
-    <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a href="bms_system_health_report.pdf" target="_blank"
-           style="display:inline-block; padding: 0.6rem 1.25rem; background: rgba(255,255,255,0.15);
-                  color: #fff; font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
-                  text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3);
-                  transition: background 0.2s;">
+    <div class="project-links">
+        <a href="bms_system_health_report.pdf" target="_blank" class="project-link-btn">
           View System Health Report →
         </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSNbd_inkrtzbEYXG0YLvpDKHH862PC946OM6TKG1ZG6Dx2ihKVrX5beZsBkP7_Wg/pubhtml" target="_blank"
-           style="display:inline-block; padding: 0.6rem 1.25rem; background: rgba(255,255,255,0.15);
-                  color: #fff; font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
-                  text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3);
-                  transition: background 0.2s;">
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSNbd_inkrtzbEYXG0YLvpDKHH862PC946OM6TKG1ZG6Dx2ihKVrX5beZsBkP7_Wg/pubhtml" target="_blank" class="project-link-btn">
           View System Risk Register →
         </a>
       </div>
@@ -796,37 +842,20 @@
         <span>Stakeholder Mgmt</span>
       </div>
      </div>
-    <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPE0AVm7uJ9WMnH6XuHphhckVTTn7s_WCgxO7KHbOAH1DCpC5K1h5DCouJZHPK7w/pubhtml" target="_blank"
-           style="display:inline-block; padding: 0.6rem 1.25rem; background: #1a4a2e;
-                  color: #fff; font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
-                  text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3);
-                  transition: background 0.2s;">
+    <div class="project-links">
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPE0AVm7uJ9WMnH6XuHphhckVTTn7s_WCgxO7KHbOAH1DCpC5K1h5DCouJZHPK7w/pubhtml" target="_blank" class="project-link-btn on-light">
           View PERT/CPM Report →
         </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1C9QdhcUG2hYgnhkiSHgDi7UIBCVgWtuCjLw5c6lc6uJs9PuzHin9WQ14pPqLgw/pubhtml" target="_blank"
-           style="display:inline-block; padding: 0.6rem 1.25rem; background: #1a4a2e;
-                  color: #fff; font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
-                  text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3);
-                  transition: background 0.2s;">
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1C9QdhcUG2hYgnhkiSHgDi7UIBCVgWtuCjLw5c6lc6uJs9PuzHin9WQ14pPqLgw/pubhtml" target="_blank" class="project-link-btn on-light">
           View NPV Analysis →
         </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vR-iBxW4-YFruNrdi5mqCiMll8NUH3nRp6WlQSn1MpQOJTsS_x9FRVuw4dRmb6Ang/pubhtml" target="_blank"
-           style="display:inline-block; padding: 0.6rem 1.25rem; background: #1a4a2e;
-                  color: #fff; font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
-                  text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3);
-                  transition: background 0.2s;">
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vR-iBxW4-YFruNrdi5mqCiMll8NUH3nRp6WlQSn1MpQOJTsS_x9FRVuw4dRmb6Ang/pubhtml" target="_blank" class="project-link-btn on-light">
           View Risk Register →
         </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFYCdcPXopY8S3TkB3cXMdwpTS41DTUS-Vz4gXfS3rM-7xoOyNKU4K1aQ-NlvnQ/pubhtml" target="_blank"
-           style="display:inline-block; padding: 0.6rem 1.25rem; background: #1a4a2e;
-                  color: #fff; font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
-                  text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3);
-                  transition: background 0.2s;">
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFYCdcPXopY8S3TkB3cXMdwpTS41DTUS-Vz4gXfS3rM-7xoOyNKU4K1aQ-NlvnQ/pubhtml" target="_blank" class="project-link-btn on-light">
           View Stakeholder Mgmt →
         </a>
       </div>
-    </div>
   </div>
 </section>
 
@@ -859,7 +888,7 @@
       <div class="timeline-date">Apr 2022 — Nov 2023</div>
       <div class="timeline-role">Flight Control Engineer</div>
       <div class="timeline-company">Autonosky</div>
-      <p class="timeline-desc">Designed and programmed UAV systems integrating GPS, IMU, and computer vision for autonomous flight. Developed embedded firmware in C++ and Python; performed field testing and system validation.</p>
+      <p class="timeline-desc">Implemented EKF-based sensor fusion combining IMU, GPS, and other sensor data to support flight stability and state estimation on multicopter platforms. Designed and programmed UAV systems integrating GPS, IMU, and computer vision for autonomous flight. Developed embedded firmware in C++ and Python; performed field testing and system validation.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">2024</div>
@@ -877,6 +906,17 @@
   </div>
 
   <div class="skills-grid fade-up">
+    <div class="skill-group">
+      <h4>State Estimation &amp; Sensor Fusion</h4>
+      <ul class="skill-list">
+        <li>Kalman Filter, EKF, ESKF — theory &amp; C++ implementation</li>
+        <li>Quaternions, rotation matrices, Lie groups (SO(3)/SE(3))</li>
+        <li>IMU/GPS fusion, bias &amp; noise modeling</li>
+        <li>MAVLink v2 protocol parsing (UDP)</li>
+        <li>PX4 SITL, Gazebo, QGroundControl</li>
+        <li>SLAM fundamentals &amp; visual-inertial odometry (VIO)</li>
+      </ul>
+    </div>
     <div class="skill-group">
       <h4>Engineering Management</h4>
       <ul class="skill-list">
@@ -904,9 +944,9 @@
       <ul class="skill-list">
         <li>ESP32, Arduino, Raspberry Pi</li>
         <li>Embedded C++, Python</li>
+        <li>Embedded Linux (Ubuntu, WSL)</li>
         <li>MQTT, BLE, LTE, GPS, NFC</li>
         <li>AWS, Node-RED, Flespi</li>
-        <li>Flutter, React Native</li>
         <li>PCB design &amp; debugging</li>
       </ul>
     </div>
@@ -916,7 +956,7 @@
         <li>LLM integration &amp; tool/function calling</li>
         <li>RAG &amp; vector search (ChromaDB)</li>
         <li>FastAPI &amp; REST API design</li>
-        <li>OAuth 2.0 &amp; API integrations</li>
+        <li>C++ (Eigen), Python</li>
         <li>Docker &amp; AWS deployment</li>
         <li>Computer vision (OpenCV, YOLO)</li>
       </ul>
@@ -928,7 +968,7 @@
   <div>
     <h2>Let's work<br><em style="font-style:italic; color: rgba(255,255,255,0.5)">together</em></h2>
     <p style="margin-top: 1.5rem">
-      Open to engineering management roles, technical project leadership, and mechatronics engineering opportunities. Based in Pretoria, South Africa.
+      Open to state estimation &amp; sensor fusion roles, engineering management, technical project leadership, and mechatronics engineering opportunities. Based in Pretoria, South Africa.
     </p>
   </div>
   <div class="contact-links">
