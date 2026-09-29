@@ -8,586 +8,172 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --ink: #0f0f0d;
-    --ink-2: #3a3935;
-    --ink-3: #7a7870;
-    --paper: #f5f3ee;
-    --paper-2: #eceae3;
-    --paper-3: #e0ddd4;
-    --accent: #1a4a2e;
-    --accent-2: #2d7a4f;
-    --accent-light: #d6ead0;
-    --rule: #d4d1c8;
-    --serif: 'DM Serif Display', Georgia, serif;
-    --sans: 'Outfit', sans-serif;
-    --mono: 'DM Mono', monospace;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 3rem;
-    background: rgba(245,243,238,0.88);
-    backdrop-filter: blur(12px);
-    border-bottom: 0.5px solid var(--rule);
-  }
-
-  .nav-logo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.04em;
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--ink-2);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--accent); }
-
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 5rem;
-  }
-
-  .hero-left {
-    padding: 8rem 4rem 6rem 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-right: 0.5px solid var(--rule);
-  }
-
-  .hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--accent-2);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: var(--accent-2);
-  }
-
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--ink);
-    margin-bottom: 1.5rem;
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-sub {
-    font-size: 1rem;
-    color: var(--ink-2);
-    max-width: 440px;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0.75rem 1.75rem;
-    background: var(--accent);
-    color: #fff;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
-
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0.75rem 1.75rem;
-    background: transparent;
-    color: var(--ink-2);
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    border: 0.5px solid var(--ink-3);
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s, transform 0.15s;
-  }
-
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-
-  .hero-right {
-    padding: 8rem 4rem 6rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1px;
-  }
-
-  .stat-row {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 1.5rem 0;
-    border-bottom: 0.5px solid var(--rule);
-    opacity: 0;
-    transform: translateX(20px);
-    animation: slideIn 0.6s forwards;
-  }
-
-  .stat-row:nth-child(1) { animation-delay: 0.1s; }
-  .stat-row:nth-child(2) { animation-delay: 0.2s; }
-  .stat-row:nth-child(3) { animation-delay: 0.3s; }
-  .stat-row:nth-child(4) { animation-delay: 0.4s; }
-  .stat-row:nth-child(5) { animation-delay: 0.5s; }
-  .stat-row:nth-child(6) { animation-delay: 0.6s; }
-
-  @keyframes slideIn {
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 2.2rem;
-    font-weight: 400;
-    color: var(--accent);
-    min-width: 80px;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 13px;
-    color: var(--ink-3);
-    line-height: 1.4;
-  }
-
-  .stat-label strong {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink-2);
-    margin-bottom: 2px;
-  }
-
-  section {
-    padding: 6rem 5rem;
-    border-top: 0.5px solid var(--rule);
-  }
-
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--ink-3);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1.15;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--rule);
-    border: 0.5px solid var(--rule);
-  }
-
-  .project-card {
-    background: var(--paper);
-    padding: 2.5rem;
-    transition: background 0.2s;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .project-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
-
-  .project-card:hover { background: var(--paper-2); }
-  .project-card:hover::after { transform: scaleX(1); }
-
-  .project-card.featured {
-    grid-column: span 2;
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .project-card.featured .project-tag { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); }
-  .project-card.featured h3 { color: #fff; }
-  .project-card.featured .project-desc { color: rgba(255,255,255,0.75); }
-  .project-card.featured .project-meta span { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
-  .project-card.featured::after { background: rgba(255,255,255,0.3); }
-
-  .project-tag {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-2);
-    border: 0.5px solid var(--accent-light);
-    padding: 3px 10px;
-    margin-bottom: 1.25rem;
-    background: var(--accent-light);
-  }
-
-  .project-card h3 {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-
-  .project-desc {
-    font-size: 14px;
-    color: var(--ink-2);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-
-  .project-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .project-meta span {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    border: 0.5px solid var(--rule);
-    padding: 3px 10px;
-  }
-
-  .project-links {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .project-link-btn {
-    display: inline-block;
-    padding: 0.6rem 1.25rem;
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    border: 0.5px solid rgba(255,255,255,0.3);
-    transition: background 0.2s;
-  }
-
-  .project-link-btn:hover { background: rgba(255,255,255,0.28); }
-
-  .project-link-btn.on-light {
-    background: #1a4a2e;
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  .coming-soon {
-    opacity: 0.45;
-    position: relative;
-  }
-
-  .coming-soon-badge {
-    position: absolute;
-    top: 1.5rem; right: 1.5rem;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
-    background: var(--paper-3);
-    padding: 4px 10px;
-    border: 0.5px solid var(--rule);
-  }
-
-  .skills-section { background: var(--paper-2); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .skill-group h4 {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-2);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 0.5px solid var(--rule);
-  }
-
-  .skill-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .skill-list li {
-    font-size: 13.5px;
-    color: var(--ink-2);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .skill-list li::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    background: var(--accent-2);
-    flex-shrink: 0;
-  }
-
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border-left: 0.5px solid var(--rule);
-    padding-left: 2.5rem;
-    margin-left: 1rem;
-  }
-
-  .timeline-item {
-    position: relative;
-    padding-bottom: 3rem;
-  }
-
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -2.75rem;
-    top: 4px;
-    width: 8px;
-    height: 8px;
-    background: var(--paper);
-    border: 1.5px solid var(--accent-2);
-  }
-
-  .timeline-item.current::before {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .timeline-date {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    letter-spacing: 0.06em;
-    margin-bottom: 0.5rem;
-  }
-
-  .timeline-role {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--ink);
-    margin-bottom: 2px;
-  }
-
-  .timeline-company {
-    font-size: 13px;
-    color: var(--accent-2);
-    margin-bottom: 0.75rem;
-    font-weight: 400;
-  }
-
-  .timeline-desc {
-    font-size: 13.5px;
-    color: var(--ink-2);
-    line-height: 1.65;
-    max-width: 600px;
-  }
-
-  .contact-section {
-    background: var(--ink);
-    color: #fff;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    padding: 6rem 5rem;
-    border-top: 0.5px solid var(--ink-2);
-  }
-
-  .contact-section h2 {
-    color: #fff;
-    margin-bottom: 1.5rem;
-  }
-
-  .contact-section p {
-    color: rgba(255,255,255,0.6);
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    transition: color 0.2s;
-    padding-bottom: 1.5rem;
-    border-bottom: 0.5px solid rgba(255,255,255,0.08);
-  }
-
-  .contact-link:last-child { border-bottom: none; }
-  .contact-link:hover { color: #fff; }
-
-  .contact-link-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  footer {
-    background: var(--ink);
-    padding: 1.5rem 5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 0.5px solid rgba(255,255,255,0.06);
-  }
-
-  footer p {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.06em;
-  }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { padding: 6rem 1.5rem 2rem; border-right: none; border-bottom: 0.5px solid var(--rule); }
-    .hero-right { padding: 2rem 1.5rem 4rem; }
-    section { padding: 4rem 1.5rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card.featured { grid-column: span 1; }
-    .skills-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .contact-section { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
-    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0f0f0d;--ink-2:#3a3935;--ink-3:#7a7870;--paper:#f5f3ee;--paper-2:#eceae3;--paper-3:#e0ddd4;--accent:#1a4a2e;--accent-2:#2d7a4f;--accent-light:#d6ead0;--rule:#d4d1c8;--serif:'DM Serif Display',Georgia,serif;--sans:'Outfit',sans-serif;--mono:'DM Mono',monospace}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:200}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(245,243,238,.88);backdrop-filter:blur(12px);border-bottom:.5px solid var(--rule)}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--accent);letter-spacing:.04em;text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:13px;font-weight:400;color:var(--ink-2);text-decoration:none;letter-spacing:.03em;position:relative;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:5rem;overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-left,.hero-right{position:relative;z-index:1}
+.hero-left{padding:8rem 4rem 6rem 5rem;display:flex;flex-direction:column;justify-content:center;border-right:.5px solid var(--rule)}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--accent-2);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--accent-2)}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,5vw,4.2rem);font-weight:400;line-height:1.1;margin-bottom:1rem}
+h1 em{font-style:italic;color:var(--accent)}
+.typing{font-family:var(--mono);font-size:1rem;color:var(--accent-2);min-height:1.7em;margin-bottom:1.25rem}
+.typing::after{content:'';display:inline-block;width:8px;height:1.05em;background:var(--accent-2);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-sub{font-size:1rem;color:var(--ink-2);max-width:460px;line-height:1.75;margin-bottom:2.5rem}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary,.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:.75rem 1.75rem;font-family:var(--sans);font-size:13px;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff;font-weight:500;border:none}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:0 8px 20px rgba(26,74,46,.25)}
+.btn-outline{background:transparent;color:var(--ink-2);border:.5px solid var(--ink-3)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-right{padding:8rem 4rem 6rem;display:flex;flex-direction:column;justify-content:center}
+.live{border:.5px solid var(--rule);background:rgba(245,243,238,.85);margin-bottom:1rem;box-shadow:0 10px 30px rgba(26,74,46,.08)}
+.live-head{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;border-bottom:.5px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.live-head b{color:var(--accent-2);font-weight:500;display:flex;align-items:center;gap:6px}
+.live-head b::before{content:'';width:7px;height:7px;border-radius:50%;background:#2d7a4f;animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,122,79,.6)}100%{box-shadow:0 0 0 8px rgba(45,122,79,0)}}
+#kf{display:block;width:100%;height:130px}
+.live-foot{display:flex;gap:1.25rem;padding:.5rem 1rem;border-top:.5px solid var(--rule);font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.live-foot i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:6px;background:var(--accent)}
+.live-foot i.raw{height:5px;width:5px;border-radius:50%;background:var(--ink-3)}
+.stat-row{display:flex;align-items:baseline;gap:1rem;padding:1.1rem 0;border-bottom:.5px solid var(--rule);opacity:0;transform:translateX(20px);animation:slideIn .6s forwards}
+.stat-row:nth-of-type(1){animation-delay:.1s}.stat-row:nth-of-type(2){animation-delay:.2s}.stat-row:nth-of-type(3){animation-delay:.3s}.stat-row:nth-of-type(4){animation-delay:.4s}.stat-row:nth-of-type(5){animation-delay:.5s}.stat-row:nth-of-type(6){animation-delay:.6s}
+@keyframes slideIn{to{opacity:1;transform:none}}
+.stat-num{font-family:var(--serif);font-size:2rem;color:var(--accent);min-width:100px;line-height:1}
+.stat-label{font-size:13px;color:var(--ink-3);line-height:1.4}
+.stat-label strong{display:block;font-size:14px;font-weight:500;color:var(--ink-2);margin-bottom:2px}
+
+/* LOGO MARQUEE */
+.marquee{border-top:.5px solid var(--rule);border-bottom:.5px solid var(--rule);background:var(--paper);padding:1.6rem 0;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:3.5rem;width:max-content;animation:scroll 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.logo{display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap;transition:transform .25s,color .25s}
+.logo:hover{color:var(--ink);transform:translateY(-4px) scale(1.06)}
+.logo .bd{height:30px;min-width:30px;padding:0 6px;display:grid;place-items:center;border-radius:7px;color:#fff;font:500 10px/1 var(--mono);letter-spacing:.02em}
+.logo .bd svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round}
+.logo img{height:30px;width:30px;object-fit:contain}
+
+.banner{position:relative;height:min(62vh,520px);overflow:hidden;border-bottom:.5px solid var(--rule);background:var(--ink)}
+.banner img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;will-change:transform}
+.banner::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,15,13,.72),rgba(15,15,13,.05) 60%),linear-gradient(0deg,rgba(26,74,46,.35),transparent 40%)}
+.banner-cap{position:absolute;z-index:2;left:5rem;bottom:3rem;max-width:420px;color:#fff}
+.banner-cap span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a8dcb8}
+.banner-cap p{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.2;margin-top:.5rem}
+@media(max-width:768px){.banner-cap{left:1.5rem;bottom:1.5rem}}
+section{padding:6rem 5rem;border-top:.5px solid var(--rule)}
+.section-header{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:2.5rem}
+.section-tag{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
+h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;line-height:1.15}
+
+/* FILTERS */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+.chip{font-family:var(--mono);font-size:11.5px;padding:.45rem 1rem;border:.5px solid var(--ink-3);background:transparent;color:var(--ink-2);cursor:pointer;transition:all .2s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:.5px solid var(--rule)}
+.project-card{--mx:50%;--my:50%;background:var(--paper);padding:2.5rem;position:relative;overflow:hidden;transition:background .2s,opacity .35s,transform .35s}
+.project-card.hide{display:none}
+.project-card::before{content:'';position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(45,122,79,.13),transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+.project-card:hover::before{opacity:1}
+.project-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.project-card:hover::after{transform:scaleX(1)}
+.project-card.featured{grid-column:span 2;background:var(--accent);color:#fff}
+.project-card.featured::before{background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.14),transparent 70%)}
+.project-card.featured::after{background:rgba(255,255,255,.35)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem}
+.project-tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);padding:3px 10px;background:var(--accent-light)}
+.featured .project-tag{color:rgba(255,255,255,.75);background:rgba(255,255,255,.1)}
+.pic{width:46px;height:46px;display:grid;place-items:center;font-size:22px;background:var(--paper-2);border:.5px solid var(--rule);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.featured .pic{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.project-card:hover .pic{transform:rotate(-8deg) scale(1.15)}
+.project-card h3{font-family:var(--serif);font-size:1.5rem;font-weight:400;line-height:1.2;margin-bottom:1rem;position:relative}
+.project-desc{font-size:14px;color:var(--ink-2);line-height:1.7;margin-bottom:1.5rem;position:relative}
+.featured .project-desc{color:rgba(255,255,255,.78)}
+.project-meta{display:flex;flex-wrap:wrap;gap:6px;position:relative}
+.project-meta span{font-family:var(--mono);font-size:11px;color:var(--ink-3);border:.5px solid var(--rule);padding:3px 10px;transition:all .2s}
+.project-meta span:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.featured .project-meta span{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2)}
+.featured .project-meta span:hover{background:#fff;color:var(--accent)}
+.project-links{margin-top:1.5rem;display:flex;gap:.75rem;flex-wrap:wrap;position:relative}
+.project-link-btn{display:inline-block;padding:.6rem 1.25rem;background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-decoration:none;border:.5px solid rgba(255,255,255,.3);transition:all .2s}
+.featured .project-link-btn{background:rgba(255,255,255,.15)}
+.project-link-btn:hover{background:var(--accent-2);transform:translateY(-2px)}
+
+/* SKILLS */
+.skills-section{background:var(--paper-2)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem 2rem}
+.skill-group h4{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:.5px solid var(--rule)}
+.skill-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.skill-list li{font-size:13.5px;color:var(--ink-2);display:flex;align-items:center;gap:8px;transition:transform .2s,color .2s}
+.skill-list li::before{content:'';width:4px;height:4px;background:var(--accent-2);flex-shrink:0;transition:transform .2s}
+.skill-list li:hover{transform:translateX(6px);color:var(--accent)}
+.skill-list li:hover::before{transform:scale(2)}
+.skill-list img{height:18px;width:18px;object-fit:contain}
+.skill-list li:has(img)::before{display:none}
+
+/* TIMELINE */
+.timeline{position:relative;border-left:.5px solid var(--rule);padding-left:2.5rem;margin-left:1rem}
+.timeline-fill{position:absolute;left:-1px;top:0;width:2px;height:0;background:var(--accent-2)}
+.timeline-item{position:relative;padding-bottom:3rem}
+.timeline-item::before{content:'';position:absolute;left:-2.75rem;top:4px;width:8px;height:8px;background:var(--paper);border:1.5px solid var(--accent-2)}
+.timeline-item.current::before{background:var(--accent);border-color:var(--accent);animation:pulse 1.8s infinite}
+.timeline-date{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em;margin-bottom:.5rem}
+.timeline-role{font-size:15px;font-weight:500}
+.timeline-company{font-size:13px;color:var(--accent-2);margin-bottom:.75rem}
+.timeline-desc{font-size:13.5px;color:var(--ink-2);line-height:1.65;max-width:600px}
+
+/* CONTACT */
+.contact-section{background:var(--ink);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:6rem 5rem;border-top:.5px solid var(--ink-2)}
+.contact-section h2{color:#fff;margin-bottom:1.5rem}
+.contact-section p{color:rgba(255,255,255,.6);font-size:15px;line-height:1.75}
+.contact-links{display:flex;flex-direction:column;justify-content:center;gap:1.5rem}
+.contact-link{display:flex;align-items:center;gap:1rem;text-decoration:none;color:rgba(255,255,255,.7);font-size:14px;transition:all .25s;padding-bottom:1.5rem;border-bottom:.5px solid rgba(255,255,255,.08)}
+.contact-link:last-child{border-bottom:none}
+.contact-link:hover{color:#fff;transform:translateX(8px)}
+.contact-link .ci{width:38px;height:38px;display:grid;place-items:center;border:.5px solid rgba(255,255,255,.2);font-size:16px;flex-shrink:0;transition:background .25s}
+.contact-link:hover .ci{background:var(--accent-2)}
+.contact-link-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:2px}
+footer{background:var(--ink);padding:1.5rem 5rem;display:flex;justify-content:space-between;align-items:center;border-top:.5px solid rgba(255,255,255,.06)}
+footer p{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.06em}
+#top{position:fixed;right:1.5rem;bottom:1.5rem;width:44px;height:44px;border:none;background:var(--accent);color:#fff;font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:all .3s;z-index:90}
+#top.show{opacity:1;pointer-events:auto;transform:none}
+#top:hover{background:var(--accent-2)}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+nav{padding:1rem 1.5rem}.nav-links{gap:1.2rem}
+.hero{grid-template-columns:1fr}
+.hero-left{padding:6rem 1.5rem 2rem;border-right:none;border-bottom:.5px solid var(--rule)}
+.hero-right{padding:2rem 1.5rem 4rem}
+section{padding:4rem 1.5rem}
+.projects-grid{grid-template-columns:1fr}.project-card.featured{grid-column:span 1}
+.skills-grid{grid-template-columns:1fr}
+.contact-section{grid-template-columns:1fr;padding:4rem 1.5rem}
+footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.fade-up,.stat-row{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-
+<div id="progress"></div>
 <nav>
   <a href="#" class="nav-logo">IJB.portfolio</a>
   <ul class="nav-links">
@@ -599,417 +185,269 @@
 </nav>
 
 <div class="hero">
+  <canvas id="net"></canvas>
   <div class="hero-left">
     <div class="hero-eyebrow">Engineering Management & Systems · State Estimation & Sensor Fusion</div>
     <h1>Imami Joel<br><em>Betofe</em></h1>
-    <p class="hero-sub">
-      Mechatronics engineer with flight control and sensor fusion experience on multicopters — building state estimation pipelines (EKF, ESKF, and beyond) from mathematical first principles through to live C++ implementation, validated on PX4 SITL and Gazebo. This sits alongside a broader background across BMS, embedded systems, IoT, and full-project engineering delivery, plus AI engineering work building LLM-powered agents with RAG and tool/function calling. Building at the intersection of technical depth and systems thinking.
-    </p>
+    <div class="typing" id="typing" aria-live="off"></div>
+    <p class="hero-sub">Mechatronics engineer with flight control and sensor fusion experience on multicopters — building state estimation pipelines (EKF, ESKF, and beyond) from mathematical first principles through to live C++ implementation, validated on PX4 SITL and Gazebo. This sits alongside a broader background across BMS, embedded systems, IoT, and full-project engineering delivery, plus AI engineering work building LLM-powered agents with RAG and tool/function calling. Building at the intersection of technical depth and systems thinking.</p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">View projects</a>
-      <a href="https://github.com/Betofe" target="_blank" class="btn-outline">GitHub ↗</a>
+      <a href="https://github.com/Betofe" target="_blank" rel="noopener" class="btn-outline">GitHub ↗</a>
     </div>
   </div>
 
   <div class="hero-right">
-    <div class="stat-row">
-      <div class="stat-num">4+</div>
-      <div class="stat-label">
-        <strong>Years of engineering experience</strong>
-        Flight control, embedded systems, BMS, drones, IoT
-      </div>
+    <div class="live">
+      <div class="live-head"><b>live · filter running</b><span>noisy IMU → estimate</span></div>
+      <canvas id="kf"></canvas>
+      <div class="live-foot"><span><i class="raw"></i>raw sensor</span><span><i></i>Kalman estimate</span></div>
     </div>
-    <div class="stat-row">
-      <div class="stat-num">KF→ESKF</div>
-      <div class="stat-label">
-        <strong>State estimation filters implemented</strong>
-        Kalman Filter through Error-State Kalman Filter, in C++
-      </div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-num">PG</div>
-      <div class="stat-label">
-        <strong>Postgraduate Diploma</strong>
-        Engineering Management — CPUT 2024
-      </div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-num">5+</div>
-      <div class="stat-label">
-        <strong>Engineering domains</strong>
-        Flight Control · BMS · IoT · Drones · Automation
-      </div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-num">CEO</div>
-      <div class="stat-label">
-        <strong>Founder, Nexadaptronics</strong>
-        Automation and software solutions — 2024–present
-      </div>
-    </div>
-    <div class="stat-row">
-      <div class="stat-num">3</div>
-      <div class="stat-label">
-        <strong>Languages spoken</strong>
-        Lingala · French · English
-      </div>
-    </div>
+    <div class="stat-row"><div class="stat-num" data-count="4" data-suffix="+">4+</div><div class="stat-label"><strong>Years of engineering experience</strong>Flight control, embedded systems, BMS, drones, IoT</div></div>
+    <div class="stat-row"><div class="stat-num">KF→ESKF</div><div class="stat-label"><strong>State estimation filters implemented</strong>Kalman Filter through Error-State Kalman Filter, in C++</div></div>
+    <div class="stat-row"><div class="stat-num">PG</div><div class="stat-label"><strong>Postgraduate Diploma</strong>Engineering Management — CPUT 2024</div></div>
+    <div class="stat-row"><div class="stat-num" data-count="5" data-suffix="+">5+</div><div class="stat-label"><strong>Engineering domains</strong>Flight Control · BMS · IoT · Drones · Automation</div></div>
+    <div class="stat-row"><div class="stat-num">CEO</div><div class="stat-label"><strong>Founder, Nexadaptronics</strong>Automation and software solutions — 2024–present</div></div>
+    <div class="stat-row"><div class="stat-num" data-count="3">3</div><div class="stat-label"><strong>Languages spoken</strong>Lingala · French · English</div></div>
   </div>
 </div>
 
+<div class="marquee" aria-label="Technologies">
+  <div class="track" id="track"></div>
+</div>
+
+<div class="banner" id="banner">
+  <img src="assets/workspace-drone.jpg" alt="Workstation with a quadcopter, flight controller board and a laptop running a state estimation visualisation" loading="lazy">
+  <div class="banner-cap fade-up"><span>The workbench</span><p>Where the filters get written, flown in simulation, then tuned on real hardware.</p></div>
+</div>
+
 <section id="projects">
-  <div class="section-header fade-up">
-    <span class="section-tag">01 / Work</span>
-    <h2>Selected projects</h2>
+  <div class="section-header fade-up"><span class="section-tag">Work</span><h2>Selected projects</h2></div>
+  <div class="filters fade-up" id="filters">
+    <button class="chip on" data-f="all">All</button>
+    <button class="chip" data-f="aero">Aerospace</button>
+    <button class="chip" data-f="ai">AI Engineering</button>
+    <button class="chip" data-f="embedded">Embedded & IoT</button>
+    <button class="chip" data-f="mgmt">Management</button>
   </div>
 
-  <div class="projects-grid fade-up">
+  <div class="projects-grid" id="grid">
 
-    <div class="project-card featured">
-      <span class="project-tag">Aerospace / State Estimation</span>
+    <div class="project-card featured" data-c="aero">
+      <div class="card-top"><span class="project-tag">Aerospace / State Estimation</span><div class="pic">🛰️</div></div>
       <h3>Real-Time UAV Sensor Fusion — KF/ESKF on PX4 SITL</h3>
-      <p class="project-desc">
-        Built a real-time state estimation pipeline in C++ from the protocol layer up: a custom MAVLink v2 UDP parser (X.25 CRC, HIGHRES_IMU and GPS_RAW_INT decoding) feeding a 15-state Error-State Kalman Filter — position, velocity, orientation error, accelerometer bias, and gyroscope bias — with quaternion-based nominal-state propagation and error-state correction on GPS updates. Also implemented a standard Kalman Filter for comparison. Ran live against PX4 SITL and Gazebo on Ubuntu/WSL, logging raw sensor data against filtered output to CSV for direct accuracy validation. Several other filter formulations were also derived mathematically and implemented alongside these.
-      </p>
-      <div class="project-meta">
-        <span>C++ / Eigen</span>
-        <span>Kalman Filter</span>
-        <span>Error-State KF (ESKF)</span>
-        <span>MAVLink v2</span>
-        <span>PX4 SITL</span>
-        <span>Gazebo</span>
-        <span>QGroundControl</span>
-        <span>Ubuntu / WSL</span>
-        <span>UDP Socket Programming</span>
-      </div>
+      <p class="project-desc">Built a real-time state estimation pipeline in C++ from the protocol layer up: a custom MAVLink v2 UDP parser (X.25 CRC, HIGHRES_IMU and GPS_RAW_INT decoding) feeding a 15-state Error-State Kalman Filter — position, velocity, orientation error, accelerometer bias, and gyroscope bias — with quaternion-based nominal-state propagation and error-state correction on GPS updates. Also implemented a standard Kalman Filter for comparison. Ran live against PX4 SITL and Gazebo on Ubuntu/WSL, logging raw sensor data against filtered output to CSV for direct accuracy validation. Several other filter formulations were also derived mathematically and implemented alongside these.</p>
+      <div class="project-meta"><span>C++ / Eigen</span><span>Kalman Filter</span><span>Error-State KF (ESKF)</span><span>MAVLink v2</span><span>PX4 SITL</span><span>Gazebo</span><span>QGroundControl</span><span>Ubuntu / WSL</span><span>UDP Socket Programming</span></div>
     </div>
 
-    <div class="project-card featured">
-      <span class="project-tag">Engineering Management</span>
+    <div class="project-card featured" data-c="mgmt">
+      <div class="card-top"><span class="project-tag">Engineering Management</span><div class="pic">🏢</div></div>
       <h3>BMS System Health Analysis — Landis &amp; Staefa</h3>
-      <p class="project-desc">
-        Conducted an unsolicited systems analysis of a live commercial BMS environment. Mapped all assets and dependencies across HVAC. Built a risk register using FMEA methodology, identified single points of failure, and produced a system health report with prioritised recommendations — written for a non-technical building owner audience.
-      </p>
-      <div class="project-meta">
-        <span>Risk Management</span>
-        <span>FMEA</span>
-        <span>Systems Thinking</span>
-        <span>BACnet / Modbus</span>
-        <span>Siemens DesigoCC</span>
-        <span>Niagara Tridium</span>
+      <p class="project-desc">Conducted an unsolicited systems analysis of a live commercial BMS environment. Mapped all assets and dependencies across HVAC. Built a risk register using FMEA methodology, identified single points of failure, and produced a system health report with prioritised recommendations — written for a non-technical building owner audience.</p>
+      <div class="project-meta"><span>Risk Management</span><span>FMEA</span><span>Systems Thinking</span><span>BACnet / Modbus</span><span>Siemens DesigoCC</span><span>Niagara Tridium</span></div>
+      <div class="project-links">
+        <a href="bms_system_health_report.pdf" target="_blank" rel="noopener" class="project-link-btn">View System Health Report →</a>
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSNbd_inkrtzbEYXG0YLvpDKHH862PC946OM6TKG1ZG6Dx2ihKVrX5beZsBkP7_Wg/pubhtml" target="_blank" rel="noopener" class="project-link-btn">View System Risk Register →</a>
       </div>
     </div>
-    <div class="project-links">
-        <a href="bms_system_health_report.pdf" target="_blank" class="project-link-btn">
-          View System Health Report →
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSNbd_inkrtzbEYXG0YLvpDKHH862PC946OM6TKG1ZG6Dx2ihKVrX5beZsBkP7_Wg/pubhtml" target="_blank" class="project-link-btn">
-          View System Risk Register →
-        </a>
-      </div>
 
-    <div class="project-card featured">
-      <span class="project-tag">AI Engineering</span>
+    <div class="project-card featured" data-c="ai">
+      <div class="card-top"><span class="project-tag">AI Engineering</span><div class="pic">🤖</div></div>
       <h3>Enterprise AI Customer Support Agent</h3>
-      <p class="project-desc">
-        Designed and built a multi-channel AI support platform — web, voice, and email (real IMAP/SMTP auto-reply) — sharing one core reasoning engine powered by the Google Gemini API with retrieval-augmented generation (RAG) and tool/function calling. Integrated a real CRM (Google Sheets API) for lead escalation and a live monitoring dashboard, containerized with Docker.
-      </p>
-      <div class="project-meta">
-        <span>RAG</span>
-        <span>Tool Calling</span>
-        <span>FastAPI</span>
-        <span>Docker</span>
-        <span>ChromaDB</span>
-        <span>CRM Integration</span>
-      </div>
+      <p class="project-desc">Designed and built a multi-channel AI support platform — web, voice, and email (real IMAP/SMTP auto-reply) — sharing one core reasoning engine powered by the Google Gemini API with retrieval-augmented generation (RAG) and tool/function calling. Integrated a real CRM (Google Sheets API) for lead escalation and a live monitoring dashboard, containerized with Docker.</p>
+      <div class="project-meta"><span>RAG</span><span>Tool Calling</span><span>FastAPI</span><span>Docker</span><span>ChromaDB</span><span>CRM Integration</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">Research / IoT</span>
+    <div class="project-card" data-c="embedded">
+      <div class="card-top"><span class="project-tag">Research / IoT</span><div class="pic">📡</div></div>
       <h3>RFID Inventory Drone with Flutter Integration</h3>
-      <p class="project-desc">
-        PG Diploma research project: designed and developed a drone system for real-time inventory management using RFID. Integrated Flutter mobile application for live asset tracking and IoT data management. Managed the full engineering lifecycle from concept through to prototype validation.
-      </p>
-      <div class="project-meta">
-        <span>RFID</span>
-        <span>Flutter</span>
-        <span>IoT Architecture</span>
-        <span>Project Management</span>
-        <span>Embedded C++</span>
-      </div>
+      <p class="project-desc">PG Diploma research project: designed and developed a drone system for real-time inventory management using RFID. Integrated Flutter mobile application for live asset tracking and IoT data management. Managed the full engineering lifecycle from concept through to prototype validation.</p>
+      <div class="project-meta"><span>RFID</span><span>Flutter</span><span>IoT Architecture</span><span>Project Management</span><span>Embedded C++</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">Embedded / Security</span>
+    <div class="project-card" data-c="embedded">
+      <div class="card-top"><span class="project-tag">Embedded / Security</span><div class="pic">🔐</div></div>
       <h3>Biometric Vehicle Access System</h3>
-      <p class="project-desc">
-        Designed and integrated a fingerprint-based vehicle ignition system with AWS backend for biometric data management. Involved sensor integration, embedded firmware, and cloud connectivity for secure, scalable access control.
-      </p>
-      <div class="project-meta">
-        <span>Fingerprint Sensor</span>
-        <span>AWS</span>
-        <span>Embedded C++</span>
-        <span>Python</span>
-        <span>IoT Security</span>
-      </div>
+      <p class="project-desc">Designed and integrated a fingerprint-based vehicle ignition system with AWS backend for biometric data management. Involved sensor integration, embedded firmware, and cloud connectivity for secure, scalable access control.</p>
+      <div class="project-meta"><span>Fingerprint Sensor</span><span>AWS</span><span>Embedded C++</span><span>Python</span><span>IoT Security</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">AI Engineering</span>
+    <div class="project-card" data-c="ai">
+      <div class="card-top"><span class="project-tag">AI Engineering</span><div class="pic">💬</div></div>
       <h3>AI Website Assistant — Nexadaptronics</h3>
-      <p class="project-desc">
-        Built a self-updating AI website assistant using a headless-browser ingestion pipeline that scrapes live site content into a semantic search index (ChromaDB), so the knowledge base stays current without manual maintenance. Deployed as an embeddable chat widget with tool-calling-based escalation.
-      </p>
-      <div class="project-meta">
-        <span>RAG</span>
-        <span>Web Scraping</span>
-        <span>ChromaDB</span>
-        <span>FastAPI</span>
-        <span>Chat Widget</span>
-      </div>
+      <p class="project-desc">Built a self-updating AI website assistant using a headless-browser ingestion pipeline that scrapes live site content into a semantic search index (ChromaDB), so the knowledge base stays current without manual maintenance. Deployed as an embeddable chat widget with tool-calling-based escalation.</p>
+      <div class="project-meta"><span>RAG</span><span>Web Scraping</span><span>ChromaDB</span><span>FastAPI</span><span>Chat Widget</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">Venture / Leadership</span>
+    <div class="project-card" data-c="mgmt">
+      <div class="card-top"><span class="project-tag">Venture / Leadership</span><div class="pic">🚀</div></div>
       <h3>Nexadaptronics — Engineering Consulting Startup</h3>
-      <p class="project-desc">
-        Founded of an engineering consulting solutions company focused on automation and software. Managing full project lifecycle independently — from scoping client requirements and estimating technical feasibility through to development, testing, and deployment.
-      </p>
-      <div class="project-meta">
-        <span>Technical Leadership</span>
-        <span>Project Charter</span>
-        <span>Full Lifecycle</span>
-        <span>Automation</span>
-        <span>Software Dev</span>
-      </div>
+      <p class="project-desc">Founded an engineering consulting solutions company focused on automation and software. Managing full project lifecycle independently — from scoping client requirements and estimating technical feasibility through to development, testing, and deployment.</p>
+      <div class="project-meta"><span>Technical Leadership</span><span>Project Charter</span><span>Full Lifecycle</span><span>Automation</span><span>Software Dev</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">Aerospace / Systems</span>
+    <div class="project-card" data-c="aero embedded">
+      <div class="card-top"><span class="project-tag">Aerospace / Systems</span><div class="pic">🔥</div></div>
       <h3>Firefighting Payload Drone</h3>
-      <p class="project-desc">
-        Led development of a firefighting drone from design to deployment. Covered PCB design, embedded firmware on ESP32, payload integration, wiring, and field testing. Included obstacle avoidance via sensor fusion.
-      </p>
-      <div class="project-meta">
-        <span>PCB Design</span>
-        <span>ESP32</span>
-        <span>Sensor Fusion</span>
-        <span>GPS / IMU</span>
-        <span>C++ Firmware</span>
-      </div>
+      <p class="project-desc">Led development of a firefighting drone from design to deployment. Covered PCB design, embedded firmware on ESP32, payload integration, wiring, and field testing. Included obstacle avoidance via sensor fusion.</p>
+      <div class="project-meta"><span>PCB Design</span><span>ESP32</span><span>Sensor Fusion</span><span>GPS / IMU</span><span>C++ Firmware</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">AI Engineering</span>
+    <div class="project-card" data-c="ai">
+      <div class="card-top"><span class="project-tag">AI Engineering</span><div class="pic">👁️</div></div>
       <h3>EdgeVision AI — Real-Time Vision Inspection</h3>
-      <p class="project-desc">
-        Built a real-time computer vision inspection platform (OpenCV, YOLO) with a configurable rules engine for pass/fail quality checks, a REST API backed by a background inference thread, structured failure-event capture with screenshots, and a live monitoring dashboard.
-      </p>
-      <div class="project-meta">
-        <span>OpenCV</span>
-        <span>YOLO</span>
-        <span>Edge AI</span>
-        <span>FastAPI</span>
-        <span>Event Monitoring</span>
-      </div>
+      <p class="project-desc">Built a real-time computer vision inspection platform (OpenCV, YOLO) with a configurable rules engine for pass/fail quality checks, a REST API backed by a background inference thread, structured failure-event capture with screenshots, and a live monitoring dashboard.</p>
+      <div class="project-meta"><span>OpenCV</span><span>YOLO</span><span>Edge AI</span><span>FastAPI</span><span>Event Monitoring</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">AI Engineering</span>
+    <div class="project-card" data-c="ai">
+      <div class="card-top"><span class="project-tag">AI Engineering</span><div class="pic">📧</div></div>
       <h3>Workspace Automation Platform</h3>
-      <p class="project-desc">
-        Developed an OAuth 2.0-authenticated platform integrating Gmail and Google Calendar — AI-powered email classification and summarization, automated calendar conflict detection, and unified semantic search across email and calendar data.
-      </p>
-      <div class="project-meta">
-        <span>OAuth 2.0</span>
-        <span>Gmail API</span>
-        <span>Calendar API</span>
-        <span>LLM Classification</span>
-        <span>Semantic Search</span>
-      </div>
+      <p class="project-desc">Developed an OAuth 2.0-authenticated platform integrating Gmail and Google Calendar — AI-powered email classification and summarization, automated calendar conflict detection, and unified semantic search across email and calendar data.</p>
+      <div class="project-meta"><span>OAuth 2.0</span><span>Gmail API</span><span>Calendar API</span><span>LLM Classification</span><span>Semantic Search</span></div>
     </div>
 
-    <div class="project-card fade-up">
-      <span class="project-tag">Engineering Management</span>
+    <div class="project-card" data-c="mgmt">
+      <div class="card-top"><span class="project-tag">Engineering Management</span><div class="pic">📑</div></div>
       <h3>Project Charter — Joatech Website Delivery</h3>
-      <p class="project-desc">
-        End-to-end project charter for the Joatech website delivery — a real client project completed in 2024. Covers full scope definition, PERT/CPM schedule across 13 weeks, NPV and profitability analysis, risk register with 12 identified risks, and a stakeholder communication plan. Managed independently as CEO of Nexadaptronics with a 3-person team.   
-      </p>
-      <div class="project-meta">
-        <span>PERT / CPM</span>
-        <span>NPV Analysis</span>
-        <span>Risk Register</span>
-        <span>Stakeholder Mgmt</span>
+      <p class="project-desc">End-to-end project charter for the Joatech website delivery — a real client project completed in 2024. Covers full scope definition, PERT/CPM schedule across 13 weeks, NPV and profitability analysis, risk register with 12 identified risks, and a stakeholder communication plan. Managed independently as CEO of Nexadaptronics with a 3-person team.</p>
+      <div class="project-meta"><span>PERT / CPM</span><span>NPV Analysis</span><span>Risk Register</span><span>Stakeholder Mgmt</span></div>
+      <div class="project-links">
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPE0AVm7uJ9WMnH6XuHphhckVTTn7s_WCgxO7KHbOAH1DCpC5K1h5DCouJZHPK7w/pubhtml" target="_blank" rel="noopener" class="project-link-btn">PERT/CPM Report →</a>
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1C9QdhcUG2hYgnhkiSHgDi7UIBCVgWtuCjLw5c6lc6uJs9PuzHin9WQ14pPqLgw/pubhtml" target="_blank" rel="noopener" class="project-link-btn">NPV Analysis →</a>
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vR-iBxW4-YFruNrdi5mqCiMll8NUH3nRp6WlQSn1MpQOJTsS_x9FRVuw4dRmb6Ang/pubhtml" target="_blank" rel="noopener" class="project-link-btn">Risk Register →</a>
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFYCdcPXopY8S3TkB3cXMdwpTS41DTUS-Vz4gXfS3rM-7xoOyNKU4K1aQ-NlvnQ/pubhtml" target="_blank" rel="noopener" class="project-link-btn">Stakeholder Mgmt →</a>
       </div>
-     </div>
-    <div class="project-links">
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRPE0AVm7uJ9WMnH6XuHphhckVTTn7s_WCgxO7KHbOAH1DCpC5K1h5DCouJZHPK7w/pubhtml" target="_blank" class="project-link-btn on-light">
-          View PERT/CPM Report →
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1C9QdhcUG2hYgnhkiSHgDi7UIBCVgWtuCjLw5c6lc6uJs9PuzHin9WQ14pPqLgw/pubhtml" target="_blank" class="project-link-btn on-light">
-          View NPV Analysis →
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vR-iBxW4-YFruNrdi5mqCiMll8NUH3nRp6WlQSn1MpQOJTsS_x9FRVuw4dRmb6Ang/pubhtml" target="_blank" class="project-link-btn on-light">
-          View Risk Register →
-        </a>
-        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFYCdcPXopY8S3TkB3cXMdwpTS41DTUS-Vz4gXfS3rM-7xoOyNKU4K1aQ-NlvnQ/pubhtml" target="_blank" class="project-link-btn on-light">
-          View Stakeholder Mgmt →
-        </a>
-      </div>
+    </div>
   </div>
 </section>
 
 <section id="experience">
-  <div class="section-header fade-up">
-    <span class="section-tag">02 / Journey</span>
-    <h2>Experience</h2>
-  </div>
-
-  <div class=" timeline fade-up">
-    <div class="timeline-item current">
-      <div class="timeline-date">Apr 2025 — Present</div>
-      <div class="timeline-role">Automation & Control Engineer (BMS)</div>
-      <div class="timeline-company">Landis and Staefa</div>
-      <p class="timeline-desc">Installing, configuring, and maintaining BMS systems for HVAC across smart building infrastructure. Working with BACnet, Modbus, and LonWorks protocols; managing Siemens DesigoCC and Niagara Tridium platforms.</p>
-    </div>
-    <div class="timeline-item current">
-      <div class="timeline-date">Sep 2024 — Present</div>
-      <div class="timeline-role">Engineering Consulting Founder</div>
-      <div class="timeline-company">Nexadaptronics</div>
-      <p class="timeline-desc">Leading design and development of automation and software solutions. Managing full project lifecycle independently across embedded and application-level systems using OOP principles.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Nov 2023 — Sep 2024</div>
-      <div class="timeline-role">IoT Embedded Systems Engineer</div>
-      <div class="timeline-company">Nuvetech</div>
-      <p class="timeline-desc">Developed IoT embedded systems using C++ and Python for intelligent device communication and automation. Integrated biometric hardware, edge devices, and AWS cloud connectivity.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Apr 2022 — Nov 2023</div>
-      <div class="timeline-role">Flight Control Engineer</div>
-      <div class="timeline-company">Autonosky</div>
-      <p class="timeline-desc">Implemented EKF-based sensor fusion combining IMU, GPS, and other sensor data to support flight stability and state estimation on multicopter platforms. Designed and programmed UAV systems integrating GPS, IMU, and computer vision for autonomous flight. Developed embedded firmware in C++ and Python; performed field testing and system validation.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">2024</div>
-      <div class="timeline-role">Postgraduate Diploma — Engineering Management</div>
-      <div class="timeline-company">Cape Peninsula University of Technology</div>
-      <p class="timeline-desc">Research: Development of an RFID-based inventory management drone system integrating Flutter mobile application for real-time monitoring, asset tracking, and IoT data management.</p>
-    </div>
+  <div class="section-header fade-up"><span class="section-tag">Journey</span><h2>Experience</h2></div>
+  <div class="timeline fade-up" id="timeline">
+    <div class="timeline-fill" id="tfill"></div>
+    <div class="timeline-item current"><div class="timeline-date">Apr 2025 — Present</div><div class="timeline-role">Automation & Control Engineer (BMS)</div><div class="timeline-company">Landis and Staefa</div><p class="timeline-desc">Installing, configuring, and maintaining BMS systems for HVAC across smart building infrastructure. Working with BACnet, Modbus, and LonWorks protocols; managing Siemens DesigoCC and Niagara Tridium platforms.</p></div>
+    <div class="timeline-item current"><div class="timeline-date">Sep 2024 — Present</div><div class="timeline-role">Engineering Consulting Founder</div><div class="timeline-company">Nexadaptronics</div><p class="timeline-desc">Leading design and development of automation and software solutions. Managing full project lifecycle independently across embedded and application-level systems using OOP principles.</p></div>
+    <div class="timeline-item"><div class="timeline-date">Nov 2023 — Sep 2024</div><div class="timeline-role">IoT Embedded Systems Engineer</div><div class="timeline-company">Nuvetech</div><p class="timeline-desc">Developed IoT embedded systems using C++ and Python for intelligent device communication and automation. Integrated biometric hardware, edge devices, and AWS cloud connectivity.</p></div>
+    <div class="timeline-item"><div class="timeline-date">Apr 2022 — Nov 2023</div><div class="timeline-role">Flight Control Engineer</div><div class="timeline-company">Autonosky</div><p class="timeline-desc">Implemented EKF-based sensor fusion combining IMU, GPS, and other sensor data to support flight stability and state estimation on multicopter platforms. Designed and programmed UAV systems integrating GPS, IMU, and computer vision for autonomous flight. Developed embedded firmware in C++ and Python; performed field testing and system validation.</p></div>
+    <div class="timeline-item"><div class="timeline-date">2024</div><div class="timeline-role">Postgraduate Diploma — Engineering Management</div><div class="timeline-company">Cape Peninsula University of Technology</div><p class="timeline-desc">Research: Development of an RFID-based inventory management drone system integrating Flutter mobile application for real-time monitoring, asset tracking, and IoT data management.</p></div>
   </div>
 </section>
 
 <section id="skills" class="skills-section">
-  <div class="section-header fade-up">
-    <span class="section-tag">03 / Capabilities</span>
-    <h2>Skills &amp; tools</h2>
-  </div>
-
+  <div class="section-header fade-up"><span class="section-tag">Capabilities</span><h2>Skills &amp; tools</h2></div>
   <div class="skills-grid fade-up">
-    <div class="skill-group">
-      <h4>State Estimation &amp; Sensor Fusion</h4>
-      <ul class="skill-list">
-        <li>Kalman Filter, EKF, ESKF — theory &amp; C++ implementation</li>
-        <li>Quaternions, rotation matrices, Lie groups (SO(3)/SE(3))</li>
-        <li>IMU/GPS fusion, bias &amp; noise modeling</li>
-        <li>MAVLink v2 protocol parsing (UDP)</li>
-        <li>PX4 SITL, Gazebo, QGroundControl</li>
-        <li>SLAM fundamentals &amp; visual-inertial odometry (VIO)</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <h4>Engineering Management</h4>
-      <ul class="skill-list">
-        <li>Risk management &amp; FMEA</li>
-        <li>Project charter &amp; scoping</li>
-        <li>PERT / CPM scheduling</li>
-        <li>NPV &amp; financial analysis</li>
-        <li>Stakeholder communication</li>
-        <li>Asana, Trello</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <h4>BMS &amp; Industrial</h4>
-      <ul class="skill-list">
-        <li>Siemens DesigoCC</li>
-        <li>Niagara Tridium</li>
-        <li>BACnet, Modbus, LonWorks</li>
-        <li>PLC programming (TIA Portal)</li>
-        <li>SCADA &amp; HMI</li>
-        <li>HVAC &amp; lighting systems</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <h4>IoT &amp; Embedded</h4>
-      <ul class="skill-list">
-        <li>ESP32, Arduino, Raspberry Pi</li>
-        <li>Embedded C++, Python</li>
-        <li>Embedded Linux (Ubuntu, WSL)</li>
-        <li>MQTT, BLE, LTE, GPS, NFC</li>
-        <li>AWS, Node-RED, Flespi</li>
-        <li>PCB design &amp; debugging</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <h4>AI &amp; Software Engineering</h4>
-      <ul class="skill-list">
-        <li>LLM integration &amp; tool/function calling</li>
-        <li>RAG &amp; vector search (ChromaDB)</li>
-        <li>FastAPI &amp; REST API design</li>
-        <li>C++ (Eigen), Python</li>
-        <li>Docker &amp; AWS deployment</li>
-        <li>Computer vision (OpenCV, YOLO)</li>
-      </ul>
-    </div>
+    <div class="skill-group"><h4>State Estimation &amp; Sensor Fusion</h4><ul class="skill-list">
+      <li>Kalman Filter, EKF, ESKF — theory &amp; C++ implementation</li><li>Quaternions, rotation matrices, Lie groups (SO(3)/SE(3))</li><li>IMU/GPS fusion, bias &amp; noise modeling</li><li>MAVLink v2 protocol parsing (UDP)</li><li>PX4 SITL, Gazebo, QGroundControl</li><li>SLAM fundamentals &amp; visual-inertial odometry (VIO)</li></ul></div>
+    <div class="skill-group"><h4>Engineering Management</h4><ul class="skill-list">
+      <li>Risk management &amp; FMEA</li><li>Project charter &amp; scoping</li><li>PERT / CPM scheduling</li><li>NPV &amp; financial analysis</li><li>Stakeholder communication</li><li>Asana, Trello</li></ul></div>
+    <div class="skill-group"><h4>BMS &amp; Industrial</h4><ul class="skill-list">
+      <li>Siemens DesigoCC</li><li>Niagara Tridium</li><li>BACnet, Modbus, LonWorks</li><li>PLC programming (TIA Portal)</li><li>SCADA &amp; HMI</li><li>HVAC &amp; lighting systems</li></ul></div>
+    <div class="skill-group"><h4>IoT &amp; Embedded</h4><ul class="skill-list">
+      <li>ESP32, Arduino, Raspberry Pi</li><li>Embedded C++, Python</li><li>Embedded Linux (Ubuntu, WSL)</li><li>MQTT, BLE, LTE, GPS, NFC</li><li>AWS, Node-RED, Flespi</li><li>PCB design &amp; debugging</li></ul></div>
+    <div class="skill-group"><h4>AI &amp; Software Engineering</h4><ul class="skill-list">
+      <li>LLM integration &amp; tool/function calling</li><li>RAG &amp; vector search (ChromaDB)</li><li>FastAPI &amp; REST API design</li><li>C++ (Eigen), Python</li><li>Docker &amp; AWS deployment</li><li>Computer vision (OpenCV, YOLO)</li></ul></div>
   </div>
 </section>
 
 <div id="contact" class="contact-section">
   <div>
-    <h2>Let's work<br><em style="font-style:italic; color: rgba(255,255,255,0.5)">together</em></h2>
-    <p style="margin-top: 1.5rem">
-      Open to state estimation &amp; sensor fusion roles, engineering management, technical project leadership, and mechatronics engineering opportunities. Based in Pretoria, South Africa.
-    </p>
+    <h2>Let's work<br><em style="font-style:italic;color:rgba(255,255,255,.5)">together</em></h2>
+    <p>Open to state estimation &amp; sensor fusion roles, engineering management, technical project leadership, and mechatronics engineering opportunities. Based in Pretoria, South Africa.</p>
   </div>
   <div class="contact-links">
-    <a href="mailto:jobetofeimami@gmail.com" class="contact-link">
-      <div>
-        <span class="contact-link-label">Email</span>
-        jobetofeimami@gmail.com
-      </div>
-    </a>
-    <a href="https://www.linkedin.com/in/imami-j-betofe-047a70188" target="_blank" class="contact-link">
-      <div>
-        <span class="contact-link-label">LinkedIn</span>
-        imami-j-betofe-047a70188
-      </div>
-    </a>
-    <a href="https://github.com/Betofe" target="_blank" class="contact-link">
-      <div>
-        <span class="contact-link-label">GitHub</span>
-        github.com/Betofe
-      </div>
-    </a>
-    <a href="tel:+27729378309" class="contact-link">
-      <div>
-        <span class="contact-link-label">Phone</span>
-        +27 72 937 8309
-      </div>
-    </a>
+    <a href="mailto:jobetofeimami@gmail.com" class="contact-link"><span class="ci">✉</span><div><span class="contact-link-label">Email</span>jobetofeimami@gmail.com</div></a>
+    <a href="https://www.linkedin.com/in/imami-j-betofe-047a70188" target="_blank" rel="noopener" class="contact-link"><span class="ci">in</span><div><span class="contact-link-label">LinkedIn</span>imami-j-betofe-047a70188</div></a>
+    <a href="https://github.com/Betofe" target="_blank" rel="noopener" class="contact-link"><span class="ci">⌥</span><div><span class="contact-link-label">GitHub</span>github.com/Betofe</div></a>
+    <a href="tel:+27729378309" class="contact-link"><span class="ci">☎</span><div><span class="contact-link-label">Phone</span>+27 72 937 8309</div></a>
   </div>
 </div>
 
-<footer>
-  <p>Imami Joel Betofe — Engineering Portfolio</p>
-  <p>Pretoria, South Africa · 2025</p>
-</footer>
+<footer><p>Imami Joel Betofe — Engineering Portfolio</p><p>Pretoria, South Africa · 2026</p></footer>
+<button id="top" aria-label="Back to top">↑</button>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+/* logo marquee (devicon CDN; missing logos hide themselves) */
+const D='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/';
+const logos=[['C++','cplusplus/cplusplus-original'],['Python','python/python-original'],['Docker','docker/docker-original'],['AWS','amazonwebservices/amazonwebservices-plain-wordmark'],['FastAPI','fastapi/fastapi-original'],['OpenCV','opencv/opencv-original'],['Flutter','flutter/flutter-original'],['Arduino','arduino/arduino-original'],['Raspberry Pi','raspberrypi/raspberrypi-original'],['Ubuntu','ubuntu/ubuntu-plain'],['Linux','linux/linux-original'],['Git','git/git-original'],['Node-RED','nodered/nodered-original'],['UAV / Drones','#1d6fb8','DR'],['PX4','#2b3a67','PX4'],['ESP32','#e7352c','ESP'],['MAVLink','#e08a00','MAV'],['Gazebo','#f58113','GZ'],['Siemens','#009999','SIE'],['BACnet / Modbus','#6b4fbb','BUS']];
+const DRONE='<svg viewBox="0 0 24 24"><path d="M12 10v4M6 8h4M14 8h4M5 6.5a2 2 0 100-.01M19 6.5a2 2 0 100-.01M5 17.5a2 2 0 100-.01M19 17.5a2 2 0 100-.01M7 7.5l3.2 3M17 7.5l-3.2 3M7 16.5l3.2-3M17 16.5l-3.2-3"/></svg>';
+const one=logos.map(([n,p,e])=>`<div class="logo">${p&&p.indexOf('#')!==0?`<img src="${D+p}.svg" alt="" loading="lazy" onerror="this.parentNode.remove()">`:`<span class="bd" style="background:${p}">${n==='UAV / Drones'?DRONE:e}</span>`}${n}</div>`).join('');
+$('#track').innerHTML=one+one;
+
+/* typing roles */
+const roles=['State Estimation Engineer','Flight Control Engineer','BMS & Automation Engineer','AI Engineer','Engineering Manager'];
+const ty=$('#typing');let ri=0,ci=0,del=false;
+function type(){const w=roles[ri];ty.textContent=w.slice(0,ci);
+  if(!del&&ci===w.length){del=true;return setTimeout(type,1500)}
+  if(del&&ci===0){del=false;ri=(ri+1)%roles.length}
+  ci+=del?-1:1;setTimeout(type,del?35:75)}
+reduce?ty.textContent=roles[0]:type();
+
+/* hero node network */
+const nc=$('#net'),nx=nc.getContext('2d');let W,H,pts=[],mouse={x:-999,y:-999};
+function sizeNet(){const r=nc.parentNode.getBoundingClientRect(),d=devicePixelRatio||1;W=r.width;H=r.height;nc.width=W*d;nc.height=H*d;nx.setTransform(d,0,0,d,0,0);
+  pts=Array.from({length:Math.min(70,Math.floor(W*H/22000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}))}
+addEventListener('resize',sizeNet);sizeNet();
+nc.parentNode.addEventListener('mousemove',e=>{const r=nc.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
+nc.parentNode.addEventListener('mouseleave',()=>mouse.x=-999);
+function net(){nx.clearRect(0,0,W,H);
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1});
+  for(let i=0;i<pts.length;i++){const a=pts[i];
+    for(let j=i+1;j<pts.length;j++){const b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<130){nx.strokeStyle=`rgba(45,122,79,${.16*(1-d/130)})`;nx.beginPath();nx.moveTo(a.x,a.y);nx.lineTo(b.x,b.y);nx.stroke()}}
+    const m=Math.hypot(a.x-mouse.x,a.y-mouse.y);
+    if(m<170){nx.strokeStyle=`rgba(26,74,46,${.4*(1-m/170)})`;nx.beginPath();nx.moveTo(a.x,a.y);nx.lineTo(mouse.x,mouse.y);nx.stroke()}
+    nx.fillStyle='rgba(45,122,79,.45)';nx.beginPath();nx.arc(a.x,a.y,1.8,0,7);nx.fill()}
+  requestAnimationFrame(net)}
+if(!reduce)net();
+
+/* live Kalman filter demo: noisy sensor vs estimate */
+const kc=$('#kf'),kx=kc.getContext('2d');let kw,kh;
+function sizeK(){const r=kc.getBoundingClientRect(),d=devicePixelRatio||1;kw=r.width;kh=r.height;kc.width=kw*d;kc.height=kh*d;kx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',sizeK);sizeK();
+const N=140,raw=[],est=[];let t=0,x=0,P=1;const Q=.02,R=.35;
+const rnd=()=>(Math.random()+Math.random()+Math.random()-1.5)*1.2;
+function step(){t+=.06;const truth=Math.sin(t)*.7+Math.sin(t*2.3)*.3,z=truth+rnd()*.9;
+  P+=Q;const K=P/(P+R);x+=K*(z-x);P*=(1-K);raw.push(z);est.push(x);if(raw.length>N){raw.shift();est.shift()}}
+function drawK(){step();kx.clearRect(0,0,kw,kh);
+  kx.strokeStyle='rgba(122,120,112,.2)';kx.setLineDash([3,4]);kx.beginPath();kx.moveTo(0,kh/2);kx.lineTo(kw,kh/2);kx.stroke();kx.setLineDash([]);
+  const X=i=>i/(N-1)*kw,Y=v=>kh/2-v*kh*.28;
+  kx.fillStyle='rgba(122,120,112,.75)';raw.forEach((v,i)=>{kx.beginPath();kx.arc(X(i),Y(v),1.7,0,7);kx.fill()});
+  kx.strokeStyle='#1a4a2e';kx.lineWidth=2;kx.lineJoin='round';kx.beginPath();est.forEach((v,i)=>i?kx.lineTo(X(i),Y(v)):kx.moveTo(X(i),Y(v)));kx.stroke();kx.lineWidth=1;
+  requestAnimationFrame(drawK)}
+if(reduce){for(let i=0;i<N;i++)step();drawK=null}else drawK();
+
+/* scroll: progress bar, back-to-top, nav highlight, timeline fill */
+const secs=['projects','experience','skills','contact'].map(id=>$('#'+id)),links=$$('.nav-links a');
+function onScroll(){const h=document.documentElement,s=h.scrollTop,max=h.scrollHeight-h.clientHeight;
+  $('#progress').style.width=(s/max*100)+'%';$('#top').classList.toggle('show',s>600);
+  let cur='';secs.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*.4)cur=el.id});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  const tl=$('#timeline').getBoundingClientRect();
+  $('#tfill').style.height=Math.max(0,Math.min(tl.height,innerHeight*.6-tl.top))+'px'}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+$('#top').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+
+/* banner parallax */
+const bi=$('#banner img');
+if(!reduce)addEventListener('scroll',()=>{const r=$('#banner').getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){bi.style.transform=`translateY(${(r.top/innerHeight)*-40}px)`}},{passive:true});
+
+/* reveal + count-up */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.1});
+$$('.fade-up').forEach(el=>io.observe(el));
+$$('[data-count]').forEach(el=>{const to=+el.dataset.count,suf=el.dataset.suffix||'';if(reduce)return;let n=0;el.textContent='0'+suf;
+  setTimeout(()=>{const iv=setInterval(()=>{n++;el.textContent=n+suf;if(n>=to)clearInterval(iv)},180)},700)});
+
+/* project spotlight + filters */
+$$('.project-card').forEach(c=>c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}));
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+  $$('.chip').forEach(c=>c.classList.toggle('on',c===b));const f=b.dataset.f;
+  $$('.project-card').forEach(c=>{const show=f==='all'||c.dataset.c.split(' ').includes(f);c.classList.toggle('hide',!show);
+    if(show&&!reduce){c.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:400,easing:'ease-out'})}})});
 </script>
 </body>
 </html>
