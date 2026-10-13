@@ -1,3 +1,10 @@
+The full file is below. I made three edits:
+
+1. Added the `DEG` stat row after `PG`.
+2. Added animation-delay rules for the 7th and 8th children of `.hero-right`, so the new row slides in with the others (the `.live` box counts as the first).
+3. Added the 2021 Mechatronics Engineering entry after the 2024 Postgraduate Diploma in the timeline.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +60,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .live-foot i.raw{height:5px;width:5px;border-radius:50%;background:var(--ink-3)}
 .stat-row{display:flex;align-items:baseline;gap:1rem;padding:1.1rem 0;border-bottom:.5px solid var(--rule);opacity:0;transform:translateX(20px);animation:slideIn .6s forwards}
 .stat-row:nth-of-type(1){animation-delay:.1s}.stat-row:nth-of-type(2){animation-delay:.2s}.stat-row:nth-of-type(3){animation-delay:.3s}.stat-row:nth-of-type(4){animation-delay:.4s}.stat-row:nth-of-type(5){animation-delay:.5s}.stat-row:nth-of-type(6){animation-delay:.6s}
+.stat-row:nth-of-type(7){animation-delay:.7s}.stat-row:nth-of-type(8){animation-delay:.8s}
 @keyframes slideIn{to{opacity:1;transform:none}}
 .stat-num{font-family:var(--serif);font-size:2rem;color:var(--accent);min-width:100px;line-height:1}
 .stat-label{font-size:13px;color:var(--ink-3);line-height:1.4}
@@ -206,6 +214,7 @@ footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}}
     <div class="stat-row"><div class="stat-num" data-count="4" data-suffix="+">4+</div><div class="stat-label"><strong>Years of engineering experience</strong>Flight control, embedded systems, BMS, drones, IoT</div></div>
     <div class="stat-row"><div class="stat-num">KF→ESKF</div><div class="stat-label"><strong>State estimation filters implemented</strong>Kalman Filter through Error-State Kalman Filter, in C++</div></div>
     <div class="stat-row"><div class="stat-num">PG</div><div class="stat-label"><strong>Postgraduate Diploma</strong>Engineering Management — CPUT 2024</div></div>
+    <div class="stat-row"><div class="stat-num">DEG</div><div class="stat-label"><strong>Degree</strong>Mechatronics Engineering — CPUT 2021</div></div>
     <div class="stat-row"><div class="stat-num" data-count="5" data-suffix="+">5+</div><div class="stat-label"><strong>Engineering domains</strong>Flight Control · BMS · IoT · Drones · Automation</div></div>
     <div class="stat-row"><div class="stat-num">CEO</div><div class="stat-label"><strong>Founder, Nexadaptronics</strong>Automation and software solutions — 2024–present</div></div>
     <div class="stat-row"><div class="stat-num" data-count="3">3</div><div class="stat-label"><strong>Languages spoken</strong>Lingala · French · English</div></div>
@@ -331,6 +340,7 @@ footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}}
     <div class="timeline-item"><div class="timeline-date">Nov 2023 — Sep 2024</div><div class="timeline-role">IoT Embedded Systems Engineer</div><div class="timeline-company">Nuvetech</div><p class="timeline-desc">Developed IoT embedded systems using C++ and Python for intelligent device communication and automation. Integrated biometric hardware, edge devices, and AWS cloud connectivity.</p></div>
     <div class="timeline-item"><div class="timeline-date">Apr 2022 — Nov 2023</div><div class="timeline-role">Flight Control Engineer</div><div class="timeline-company">Autonosky</div><p class="timeline-desc">Implemented EKF-based sensor fusion combining IMU, GPS, and other sensor data to support flight stability and state estimation on multicopter platforms. Designed and programmed UAV systems integrating GPS, IMU, and computer vision for autonomous flight. Developed embedded firmware in C++ and Python; performed field testing and system validation.</p></div>
     <div class="timeline-item"><div class="timeline-date">2024</div><div class="timeline-role">Postgraduate Diploma — Engineering Management</div><div class="timeline-company">Cape Peninsula University of Technology</div><p class="timeline-desc">Research: Development of an RFID-based inventory management drone system integrating Flutter mobile application for real-time monitoring, asset tracking, and IoT data management.</p></div>
+    <div class="timeline-item"><div class="timeline-date">2021</div><div class="timeline-role">Degree in Mechatronics Engineering</div><div class="timeline-company">Cape Peninsula University of Technology</div><p class="timeline-desc">Research: Face Mask Detection</p></div>
   </div>
 </section>
 
@@ -451,3 +461,4 @@ $('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(
 </script>
 </body>
 </html>
+```
