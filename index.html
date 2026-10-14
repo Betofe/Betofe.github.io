@@ -259,7 +259,12 @@ footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}}
       <p class="project-desc">Designed and built a multi-channel AI support platform — web, voice, and email (real IMAP/SMTP auto-reply) — sharing one core reasoning engine powered by the Google Gemini API with retrieval-augmented generation (RAG) and tool/function calling. Integrated a real CRM (Google Sheets API) for lead escalation and a live monitoring dashboard, containerized with Docker.</p>
       <div class="project-meta"><span>RAG</span><span>Tool Calling</span><span>FastAPI</span><span>Docker</span><span>ChromaDB</span><span>CRM Integration</span></div>
     </div>
-
+    <div class="project-card" data-c="aero embedded">
+      <div class="card-top"><span class="project-tag">Aerospace / Simulation</span><div class="pic">🚁</div></div>
+      <h3>UAV Simulation &amp; Telemetry Pipeline</h3>
+      <p class="project-desc">Simulation pipeline built around PX4 SITL and Gazebo, with MAVLink telemetry, live camera video streaming to QGroundControl, and data publishing to a cloud MQTT broker.</p>
+      <div class="project-meta"><span>PX4 SITL</span><span>Gazebo</span><span>MAVLink</span><span>MQTT / EMQX</span><span>GStreamer</span><span>H.264 / UDP</span><span>Python</span><span>Ubuntu / WSL</span></div>
+    </div>
     <div class="project-card" data-c="embedded">
       <div class="card-top"><span class="project-tag">Research / IoT</span><div class="pic">📡</div></div>
       <h3>RFID Inventory Drone with Flutter Integration</h3>
@@ -341,13 +346,13 @@ footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}}
   <div class="section-header fade-up"><span class="section-tag">Capabilities</span><h2>Skills &amp; tools</h2></div>
   <div class="skills-grid fade-up">
     <div class="skill-group"><h4>State Estimation &amp; Sensor Fusion</h4><ul class="skill-list">
-      <li>Kalman Filter, EKF, ESKF — theory &amp; C++ implementation</li><li>Quaternions, rotation matrices, Lie groups (SO(3)/SE(3))</li><li>IMU/GPS fusion, bias &amp; noise modeling</li><li>MAVLink v2 protocol parsing (UDP)</li><li>PX4 SITL, Gazebo, QGroundControl</li><li>SLAM fundamentals &amp; visual-inertial odometry (VIO)</li></ul></div>
+      <li>Kalman Filter, EKF, ESKF — theory &amp; C++ implementation</li><li>Quaternions, rotation matrices, Lie groups (SO(3)/SE(3))</li><li>IMU/GPS fusion, bias &amp; noise modeling</li><li>MAVLink v2 protocol parsing (UDP)</li><li>PX4 SITL, Gazebo, QGroundControl</li><li>Gazebo camera integration &amp; GStreamer H.264 video streaming</li><li>SLAM fundamentals &amp; visual-inertial odometry (VIO)</li></ul></div>
     <div class="skill-group"><h4>Engineering Management</h4><ul class="skill-list">
       <li>Risk management &amp; FMEA</li><li>Project charter &amp; scoping</li><li>PERT / CPM scheduling</li><li>NPV &amp; financial analysis</li><li>Stakeholder communication</li><li>Asana, Trello</li></ul></div>
     <div class="skill-group"><h4>BMS &amp; Industrial</h4><ul class="skill-list">
       <li>Siemens DesigoCC</li><li>Niagara Tridium</li><li>BACnet, Modbus, LonWorks</li><li>PLC programming (TIA Portal)</li><li>SCADA &amp; HMI</li><li>HVAC &amp; lighting systems</li></ul></div>
     <div class="skill-group"><h4>IoT &amp; Embedded</h4><ul class="skill-list">
-      <li>ESP32, Arduino, Raspberry Pi</li><li>Embedded C++, Python</li><li>Embedded Linux (Ubuntu, WSL)</li><li>MQTT, BLE, LTE, GPS, NFC</li><li>AWS, Node-RED, Flespi</li><li>PCB design &amp; debugging</li></ul></div>
+      <li>ESP32, Arduino, Raspberry Pi</li><li>Embedded C++, Python</li><li>Embedded Linux (Ubuntu, WSL)</li><li>MQTT (EMQX broker), BLE, LTE, GPS, NFC</li><li>AWS, Node-RED, Flespi</li><li>PCB design &amp; debugging</li></ul></div>
     <div class="skill-group"><h4>AI &amp; Software Engineering</h4><ul class="skill-list">
       <li>LLM integration &amp; tool/function calling</li><li>RAG &amp; vector search (ChromaDB)</li><li>FastAPI &amp; REST API design</li><li>C++ (Eigen), Python</li><li>Docker &amp; AWS deployment</li><li>Computer vision (OpenCV, YOLO)</li></ul></div>
   </div>
@@ -375,7 +380,7 @@ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 /* logo marquee (devicon CDN; missing logos hide themselves) */
 const D='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/';
-const logos=[['C++','cplusplus/cplusplus-original'],['Python','python/python-original'],['Docker','docker/docker-original'],['AWS','amazonwebservices/amazonwebservices-plain-wordmark'],['FastAPI','fastapi/fastapi-original'],['OpenCV','opencv/opencv-original'],['Flutter','flutter/flutter-original'],['Arduino','arduino/arduino-original'],['Raspberry Pi','raspberrypi/raspberrypi-original'],['Ubuntu','ubuntu/ubuntu-plain'],['Linux','linux/linux-original'],['Git','git/git-original'],['Node-RED','nodered/nodered-original'],['UAV / Drones','#1d6fb8','DR'],['PX4','#2b3a67','PX4'],['ESP32','#e7352c','ESP'],['MAVLink','#e08a00','MAV'],['Gazebo','#f58113','GZ'],['Siemens','#009999','SIE'],['BACnet / Modbus','#6b4fbb','BUS']];
+const logos=[['C++','cplusplus/cplusplus-original'],['Python','python/python-original'],['Docker','docker/docker-original'],['AWS','amazonwebservices/amazonwebservices-plain-wordmark'],['FastAPI','fastapi/fastapi-original'],['OpenCV','opencv/opencv-original'],['Flutter','flutter/flutter-original'],['Arduino','arduino/arduino-original'],['Raspberry Pi','raspberrypi/raspberrypi-original'],['Ubuntu','ubuntu/ubuntu-plain'],['Linux','linux/linux-original'],['Git','git/git-original'],['Node-RED','nodered/nodered-original'],['UAV / Drones','#1d6fb8','DR'],['PX4','#2b3a67','PX4'],['ESP32','#e7352c','ESP'],['MAVLink','#e08a00','MAV'],['Gazebo','#f58113','GZ'],['QGroundControl','#2d6cdf','QGC'],['GStreamer','#c0392b','GST'],['MQTT','#660066','MQTT'],['EMQX','#00b173','EMQX'],,['Siemens','#009999','SIE'],['BACnet / Modbus','#6b4fbb','BUS']];
 const DRONE='<svg viewBox="0 0 24 24"><path d="M12 10v4M6 8h4M14 8h4M5 6.5a2 2 0 100-.01M19 6.5a2 2 0 100-.01M5 17.5a2 2 0 100-.01M19 17.5a2 2 0 100-.01M7 7.5l3.2 3M17 7.5l-3.2 3M7 16.5l3.2-3M17 16.5l-3.2-3"/></svg>';
 const one=logos.map(([n,p,e])=>`<div class="logo">${p&&p.indexOf('#')!==0?`<img src="${D+p}.svg" alt="" loading="lazy" onerror="this.parentNode.remove()">`:`<span class="bd" style="background:${p}">${n==='UAV / Drones'?DRONE:e}</span>`}${n}</div>`).join('');
 $('#track').innerHTML=one+one;
